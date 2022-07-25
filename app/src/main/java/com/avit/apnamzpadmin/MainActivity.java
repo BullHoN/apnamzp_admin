@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        FirebaseMessaging.getInstance().subscribeToTopic("pending_orders");
+
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
