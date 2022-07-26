@@ -13,18 +13,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.models.deliverysathi.DeliverySathiStatus;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
 public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySathiStatusAdapter.DeliverySathiStatusViewHolder>{
 
+    public interface DeliverySathiStatusActions {
+        void assignDeliverySathi(String deliverySathiPhoneNo);
+    }
+
     private List<DeliverySathiStatus> deliverySathiStatusList;
     private Context context;
+    private boolean showAssignButton;
+    private DeliverySathiStatusActions deliverySathiStatusActions;
     private String TAG = "DeliverySathisStatusActivity";
 
-    public DeliverySathiStatusAdapter(List<DeliverySathiStatus> deliverySathiStatusList, Context context) {
+    public DeliverySathiStatusAdapter(List<DeliverySathiStatus> deliverySathiStatusList, Context context, boolean showAssignButton, DeliverySathiStatusActions deliverySathiStatusActions) {
         this.deliverySathiStatusList = deliverySathiStatusList;
         this.context = context;
+        this.showAssignButton = showAssignButton;
+        this.deliverySathiStatusActions = deliverySathiStatusActions;
     }
 
     @NonNull
@@ -65,12 +74,24 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
         }
 
         holder.deliverySathiPhoneView.setText("+91" + curr.getDeliverySathi().getPhoneNo());
+
         holder.deliverySathiAddressView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: Show location on map
             }
         });
+
+        holder.assignButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deliverySathiStatusActions.assignDeliverySathi(curr.getDeliverySathi().getPhoneNo());
+            }
+        });
+
+        if(!showAssignButton){
+            holder.assignButton.setVisibility(View.GONE);
+        }
 
     }
 
@@ -89,6 +110,7 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
         private LinearLayout orderStatusContainer;
         private TextView deliverySathiPhoneView, deliverySathiAddressView, shopNameView,
                 shopPhoneNoView, shopAddressView, userPhoneNoView, userAddressView;
+        private MaterialButton assignButton;
 
         public DeliverySathiStatusViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -105,6 +127,7 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
             userPhoneNoView = itemView.findViewById(R.id.user_phoneNo);
             userAddressView = itemView.findViewById(R.id.user_address);
 
+            assignButton = itemView.findViewById(R.id.assign_delivery_sathi);
         }
     }
 }
