@@ -31,9 +31,9 @@ import es.dmoral.toasty.Toasty;
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdapterViewHolder>{
 
     public interface OrdersActions {
-        void updateOrderStatus(String orderId,Integer updatedStatus,int position);
+        void assignDeliverySathi(OrderItem orderItem);
         void updateItemsOnTheWayTotalCost(String orderId, String totalCost);
-        void cancelItemsOnTheWay(String orderId);
+        void cancelOrder(String orderId);
     }
 
     private List<OrderItem> orderItems;
@@ -146,6 +146,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
             @Override
             public void onClick(View view) {
                 showMenu(view,curr.get_id(),curr);
+            }
+        });
+
+        holder.nextActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ordersActions.assignDeliverySathi(curr);
             }
         });
 

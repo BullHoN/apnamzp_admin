@@ -1,5 +1,6 @@
 package com.avit.apnamzpadmin.network;
 
+import com.avit.apnamzpadmin.models.deliverysathi.DeliverySathiStatus;
 import com.avit.apnamzpadmin.models.order.OrderItem;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public interface NetworkAPI {
     @GET("/apna_mzp/admin/pendingOrders")
     Call<List<OrderItem>> getPendingOrders();
 
-
+    @GET("/apna_mzp/admin/delivery_sathis")
+    Call<List<DeliverySathiStatus>> getDeliverySathiStatus();
 
 }

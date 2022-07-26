@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.DeliverySathisStatusActivity">
+    tools:context=".ui.deliverysathistatus.DeliverySathisStatusActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:padding="12dp"
+            android:id="@+id/header"
+            android:background="@color/primaryColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:background="@drawable/ic_baseline_arrow_back_24"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:layout_marginLeft="12dp"
+                android:textSize="22sp"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:text="Delivery Sathis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/delivery_sathis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_delivery_sathi_location" />
+
+    </RelativeLayout>
+
+</ScrollView>

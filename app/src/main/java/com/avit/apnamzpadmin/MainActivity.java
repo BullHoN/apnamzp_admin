@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.avit.apnamzpadmin.ui.adminshopservice.AdminShopServiceActivity;
+import com.avit.apnamzpadmin.ui.deliverysathistatus.DeliverySathisStatusActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -28,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent adminShopServiceIntent = new Intent(getApplicationContext(), AdminShopServiceActivity.class);
                 startActivity(adminShopServiceIntent);
+            }
+        });
+
+        findViewById(R.id.delivery_sathis_status).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent deliverySathiStatusIntent = new Intent(getApplicationContext(), DeliverySathisStatusActivity.class);
+                startActivity(deliverySathiStatusIntent);
             }
         });
 

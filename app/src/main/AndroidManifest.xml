@@ -13,7 +13,7 @@
         android:theme="@style/Theme.ApnaMzpAdmin"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.DeliverySathisStatusActivity"
+            android:name=".ui.deliverysathistatus.DeliverySathisStatusActivity"
             android:exported="false" />
 
         <service
