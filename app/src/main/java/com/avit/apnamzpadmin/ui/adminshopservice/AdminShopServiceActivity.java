@@ -8,14 +8,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.avit.apnamzpadmin.R;
+import com.avit.apnamzpadmin.models.network.NetworkResponse;
 import com.avit.apnamzpadmin.models.order.OrderItem;
+import com.avit.apnamzpadmin.network.NetworkAPI;
+import com.avit.apnamzpadmin.network.RetrofitClient;
 import com.avit.apnamzpadmin.ui.deliverysathistatus.DeliverySathisStatusActivity;
+import com.avit.apnamzpadmin.utils.ErrorUtils;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class AdminShopServiceActivity extends AppCompatActivity implements OrdersAdapter.OrdersActions{
 
@@ -47,6 +58,8 @@ public class AdminShopServiceActivity extends AppCompatActivity implements Order
             }
         });
 
+
+
     }
 
     @Override
@@ -57,12 +70,59 @@ public class AdminShopServiceActivity extends AppCompatActivity implements Order
     }
 
     @Override
-    public void updateItemsOnTheWayTotalCost(String orderId, String totalCost) {
+    public void addDeliverySathiIncome(String orderId, String totalCost) {
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
+
+        Call<NetworkResponse> call = networkAPI.addDeliverySathiIncome(orderId,totalCost);
+        call.enqueue(new Callback<NetworkResponse>() {
+            @Override
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getApplicationContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+
+                Toasty.success(getApplicationContext(),"Update Successfull",Toasty.LENGTH_SHORT)
+                        .show();
+
+            }
+
+            @Override
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
 
     }
 
     @Override
-    public void cancelOrder(String orderId) {
+    public void cancelOrder(String orderId,String cancelReason) {
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
+
+        Call<NetworkResponse> call = networkAPI.cancelOrder(orderId,cancelReason);
+        call.enqueue(new Callback<NetworkResponse>() {
+            @Override
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
+                if (!response.isSuccessful()) {
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getApplicationContext(), errorResponse.getDesc(), Toasty.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+
+                Toasty.success(getApplicationContext(), "Update Successfull", Toasty.LENGTH_SHORT)
+                        .show();
+            }
+
+            @Override
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
 
     }
 

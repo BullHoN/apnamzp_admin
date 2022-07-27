@@ -17,6 +17,13 @@
             android:orientation="vertical" >
 
             <TextView
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:text="Delivery Sathi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
                 android:id="@+id/delivery_sathi_phoneNo"
                 android:textSize="16sp"
                 android:fontFamily="@font/roboto_bold"

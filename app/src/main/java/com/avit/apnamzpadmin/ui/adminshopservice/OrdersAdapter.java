@@ -32,8 +32,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
 
     public interface OrdersActions {
         void assignDeliverySathi(OrderItem orderItem);
-        void updateItemsOnTheWayTotalCost(String orderId, String totalCost);
-        void cancelOrder(String orderId);
+        void addDeliverySathiIncome(String orderId, String totalCost);
+        void cancelOrder(String orderId, String cancelReason);
     }
 
     private List<OrderItem> orderItems;
@@ -190,10 +190,12 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
 
                 switch (menuItem.getItemId()){
                     case R.id.cancel_order:
-                        // TODO: Cancel Order
+                        ordersActions.cancelOrder(order_id,"No Delivery Sathi Found");
+                        orderItems.remove(orderItem);
+                        notifyDataSetChanged();
                         return true;
                     case R.id.add_delivery_sathi_income:
-                        // TODO: Add Delivery Sathi Income
+                        addDeliverySathiIncome(order_id);
                         return true;
                     default:
                         return  false;
@@ -205,12 +207,12 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
         popupMenu.show();
     }
 
-    private void addCostOfItemsOnTheWayDialog(String order_id){
+    private void addDeliverySathiIncome(String order_id){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_order_item_actions,null,false);
 
         TextView titleView = view.findViewById(R.id.title);
-        titleView.setText("Enter Total Cost Of All Items On The Way");
+        titleView.setText("Enter delivery sathi income");
 
         TextInputEditText textInputEditText = view.findViewById(R.id.dialog_input);
 
@@ -225,7 +227,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
                     return;
                 }
 
-                ordersActions.updateItemsOnTheWayTotalCost(order_id,data);
+                ordersActions.addDeliverySathiIncome(order_id,data);
             }
         });
 

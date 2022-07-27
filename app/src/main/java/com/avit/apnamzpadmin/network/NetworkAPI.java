@@ -24,4 +24,11 @@ public interface NetworkAPI {
     @POST("/apna_mzp/admin/assign_delivery_sathi")
     Call<NetworkResponse> assignDeliverySathi(@Query("orderId") String orderId, @Query("deliverySathiNo") String deliverySathiNo);
 
+    @POST("/apna_mzp/admin/addDeliverySathiIncome")
+    Call<NetworkResponse> addDeliverySathiIncome(@Query("orderId") String orderId, @Query("deliverySathiIncome") String deliverySathiIncome);
+
+    @POST("/apna_mzp/admin/cancelOrder")
+    Call<NetworkResponse> cancelOrder(@Query("orderId") String orderId, @Query("cancelReason") String cancelReason);
+
+
 }
