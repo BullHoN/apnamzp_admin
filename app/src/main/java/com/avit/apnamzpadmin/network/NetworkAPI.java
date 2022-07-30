@@ -3,10 +3,12 @@ package com.avit.apnamzpadmin.network;
 import com.avit.apnamzpadmin.models.deliverysathi.DeliverySathiStatus;
 import com.avit.apnamzpadmin.models.network.NetworkResponse;
 import com.avit.apnamzpadmin.models.order.OrderItem;
+import com.avit.apnamzpadmin.models.user.UserAppDetails;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -32,5 +34,11 @@ public interface NetworkAPI {
 
     @GET("/apna_mzp/admin/orders")
     Call<List<OrderItem>> getOrdersByPhoneNo(@Query("phoneNo") String phoneNo);
+
+    @GET("/apna_mzp/admin/userAppData")
+    Call<UserAppDetails> getUserAppDetails();
+
+    @POST("/apna_mzp/admin/userAppData")
+    Call<NetworkResponse> updateUserAppDetails(@Body UserAppDetails userAppDetails);
 
 }

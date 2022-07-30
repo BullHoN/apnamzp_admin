@@ -11,6 +11,7 @@ import android.view.View;
 import com.avit.apnamzpadmin.ui.adminshopservice.AdminShopServiceActivity;
 import com.avit.apnamzpadmin.ui.deliverysathistatus.DeliverySathisStatusActivity;
 import com.avit.apnamzpadmin.ui.getorderservice.GetOrdersActivity;
+import com.avit.apnamzpadmin.ui.userappservices.UserAppServiceActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -46,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent searchOrdersIntent = new Intent(getApplicationContext(), GetOrdersActivity.class);
                 startActivity(searchOrdersIntent);
+            }
+        });
+
+        findViewById(R.id.user_services).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent userServicesIntent = new Intent(getApplicationContext(), UserAppServiceActivity.class);
+                startActivity(userServicesIntent);
             }
         });
 
