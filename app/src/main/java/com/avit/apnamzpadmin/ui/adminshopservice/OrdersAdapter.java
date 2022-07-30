@@ -21,8 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.models.order.OrderItem;
+import com.avit.apnamzpadmin.ui.orderdetails.OrderDetailsActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -197,6 +199,9 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
                     case R.id.add_delivery_sathi_income:
                         addDeliverySathiIncome(order_id);
                         return true;
+                    case R.id.more_details:
+                        openOrderDetails(orderItem);
+                        return true;
                     default:
                         return  false;
                 }
@@ -205,6 +210,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
         });
 
         popupMenu.show();
+    }
+
+    private void openOrderDetails(OrderItem orderItem){
+        Intent intent = new Intent(context, OrderDetailsActivity.class);
+        Gson gson = new Gson();
+        intent.putExtra("orderItem", gson.toJson(orderItem));
+        context.startActivity(intent);
     }
 
     private void addDeliverySathiIncome(String order_id){

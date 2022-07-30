@@ -8,5 +8,8 @@
         android:title="Add Delivery Sathi Income"
         android:id="@+id/add_delivery_sathi_income" />
 
+    <item
+        android:title="more details"
+        android:id="@+id/more_details" />
 
 </menu>

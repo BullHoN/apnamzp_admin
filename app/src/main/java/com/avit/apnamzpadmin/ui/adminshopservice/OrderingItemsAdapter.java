@@ -39,6 +39,8 @@ public class OrderingItemsAdapter extends RecyclerView.Adapter<OrderingItemsAdap
         String orderItemDetails = curr.getQuantity() + " x " + curr.getName() + " (" + pricingData.getType() + ") ";
         holder.orderItemDetail.setText(orderItemDetails);
 
+        String price = String.valueOf(Integer.parseInt(pricingData.getPrice()) - Integer.parseInt(curr.getDiscount()));
+        holder.orderItemPrice.setText("₹" + price);
     }
 
     @Override
@@ -48,11 +50,12 @@ public class OrderingItemsAdapter extends RecyclerView.Adapter<OrderingItemsAdap
 
     public class OrderItemsViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView orderItemDetail;
+        public TextView orderItemDetail, orderItemPrice;
 
         public OrderItemsViewHolder(@NonNull View itemView) {
             super(itemView);
             orderItemDetail = itemView.findViewById(R.id.order_item_detail);
+            orderItemPrice = itemView.findViewById(R.id.order_item_price);
         }
     }
 }

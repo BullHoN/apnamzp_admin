@@ -30,5 +30,7 @@ public interface NetworkAPI {
     @POST("/apna_mzp/admin/cancelOrder")
     Call<NetworkResponse> cancelOrder(@Query("orderId") String orderId, @Query("cancelReason") String cancelReason);
 
+    @GET("/apna_mzp/admin/orders")
+    Call<List<OrderItem>> getOrdersByPhoneNo(@Query("phoneNo") String phoneNo);
 
 }

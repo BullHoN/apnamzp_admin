@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ApnaMzpAdmin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.orderdetails.OrderDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.getorderservice.GetOrdersActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.deliverysathistatus.DeliverySathisStatusActivity"
             android:exported="false" />
 

@@ -1,6 +1,7 @@
-package com.avit.apnamzpadmin.ui.adminshopservice;
+package com.avit.apnamzpadmin.ui.getorderservice;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,17 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.models.network.NetworkResponse;
 import com.avit.apnamzpadmin.models.order.OrderItem;
 import com.avit.apnamzpadmin.network.NetworkAPI;
 import com.avit.apnamzpadmin.network.RetrofitClient;
+import com.avit.apnamzpadmin.ui.adminshopservice.OrdersAdapter;
 import com.avit.apnamzpadmin.ui.deliverysathistatus.DeliverySathisStatusActivity;
 import com.avit.apnamzpadmin.utils.ErrorUtils;
-import com.avit.apnamzpadmin.utils.NotificationUtils;
 import com.google.gson.Gson;
 
+import java.lang.reflect.GenericSignatureFormatError;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,38 +32,47 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class AdminShopServiceActivity extends AppCompatActivity implements OrdersAdapter.OrdersActions{
+public class GetOrdersActivity extends AppCompatActivity implements OrdersAdapter.OrdersActions{
 
-    private String TAG = "AdminShopServiceActivity";
-    private AdminShopServiceViewModel viewModel;
-    private RecyclerView pendingOrderItems;
+    private String TAG = "GetOrdersActivity";
+    private GetOrdersViewModel viewModel;
     private OrdersAdapter ordersAdapter;
     private Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_shop_service);
-        viewModel = new ViewModelProvider(this).get(AdminShopServiceViewModel.class);
+        setContentView(R.layout.activity_get_orders);
+
         gson = new Gson();
+        viewModel = new ViewModelProvider(this).get(GetOrdersViewModel.class);
 
-        NotificationUtils.stopSound();
-        viewModel.getPendingOrders(getApplicationContext());
+        SearchView searchView =  findViewById(R.id.search_orders);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.i(TAG, "onQueryTextSubmit: " + query);
+                viewModel.getOrders(getApplicationContext(),query);
+                return false;
+            }
 
-        pendingOrderItems = findViewById(R.id.pending_orders_list);
-        pendingOrderItems.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        RecyclerView recyclerView = findViewById(R.id.searched_orders);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         ordersAdapter = new OrdersAdapter(new ArrayList<>(),this,this);
+        recyclerView.setAdapter(ordersAdapter);
 
-        pendingOrderItems.setAdapter(ordersAdapter);
-
-        viewModel.getMutableLivePendingOrderItemsData().observe(this, new Observer<List<OrderItem>>() {
+        viewModel.getMutableLiveData().observe(this, new Observer<List<OrderItem>>() {
             @Override
             public void onChanged(List<OrderItem> orderItems) {
                 ordersAdapter.updateItems(orderItems);
             }
         });
-
-
 
     }
 
@@ -97,11 +109,10 @@ public class AdminShopServiceActivity extends AppCompatActivity implements Order
                 Log.e(TAG, "onFailure: ", t);
             }
         });
-
     }
 
     @Override
-    public void cancelOrder(String orderId,String cancelReason) {
+    public void cancelOrder(String orderId, String cancelReason) {
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
 
@@ -126,11 +137,5 @@ public class AdminShopServiceActivity extends AppCompatActivity implements Order
             }
         });
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        viewModel.getPendingOrders(getApplicationContext());
     }
 }
