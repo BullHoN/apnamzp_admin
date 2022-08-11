@@ -3,6 +3,7 @@ package com.avit.apnamzpadmin.network;
 import com.avit.apnamzpadmin.models.deliverysathi.DeliverySathiStatus;
 import com.avit.apnamzpadmin.models.network.NetworkResponse;
 import com.avit.apnamzpadmin.models.order.OrderItem;
+import com.avit.apnamzpadmin.models.review.ReviewData;
 import com.avit.apnamzpadmin.models.user.UserAppDetails;
 
 import java.util.List;
@@ -14,8 +15,8 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface NetworkAPI {
-    public static String SERVER_URL = "http://192.168.63.85:5000/";
-//    String SERVER_URL = "https://2ba0-2409-4063-2109-67d5-58fa-eac6-db57-6edd.ngrok.io";
+    public static String SERVER_URL = "http://192.168.138.85:5000/";
+//    String SERVER_URL = "https://apnamzp.in/";
 
     @GET("/apna_mzp/admin/pendingOrders")
     Call<List<OrderItem>> getPendingOrders();
@@ -40,5 +41,8 @@ public interface NetworkAPI {
 
     @POST("/apna_mzp/admin/userAppData")
     Call<NetworkResponse> updateUserAppDetails(@Body UserAppDetails userAppDetails);
+
+    @GET("/apna_mzp/admin/apna_reviews")
+    Call<List<ReviewData>> getApnaReviews();
 
 }

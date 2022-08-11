@@ -11,6 +11,7 @@ import android.view.View;
 import com.avit.apnamzpadmin.ui.adminshopservice.AdminShopServiceActivity;
 import com.avit.apnamzpadmin.ui.deliverysathistatus.DeliverySathisStatusActivity;
 import com.avit.apnamzpadmin.ui.getorderservice.GetOrdersActivity;
+import com.avit.apnamzpadmin.ui.reviewservice.ReviewService;
 import com.avit.apnamzpadmin.ui.userappservices.UserAppServiceActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -55,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent userServicesIntent = new Intent(getApplicationContext(), UserAppServiceActivity.class);
                 startActivity(userServicesIntent);
+            }
+        });
+
+        findViewById(R.id.apna_reviews).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent apnaReviews = new Intent(getApplicationContext(), ReviewService.class);
+                startActivity(apnaReviews);
             }
         });
 

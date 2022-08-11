@@ -45,6 +45,7 @@ dependencies {
     implementation "com.airbnb.android:lottie:5.2.0"
     implementation 'com.github.GrenderG:Toasty:1.5.2'
 
+    implementation 'com.github.ome450901:SimpleRatingBar:1.5.1'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
