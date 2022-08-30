@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.View;
 
 import com.avit.apnamzpadmin.ui.adminshopservice.AdminShopServiceActivity;
+import com.avit.apnamzpadmin.ui.createshop.CreateShopActivity;
 import com.avit.apnamzpadmin.ui.deliverysathistatus.DeliverySathisStatusActivity;
+import com.avit.apnamzpadmin.ui.directorder.DirectOrderActivity;
 import com.avit.apnamzpadmin.ui.getorderservice.GetOrdersActivity;
 import com.avit.apnamzpadmin.ui.reviewservice.ReviewService;
 import com.avit.apnamzpadmin.ui.userappservices.UserAppServiceActivity;
@@ -64,6 +66,22 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent apnaReviews = new Intent(getApplicationContext(), ReviewService.class);
                 startActivity(apnaReviews);
+            }
+        });
+
+        findViewById(R.id.direct_order).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent directOrder = new Intent(getApplicationContext(), DirectOrderActivity.class);
+                startActivity(directOrder);
+            }
+        });
+
+        findViewById(R.id.create_shop).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent createShop = new Intent(getApplicationContext(), CreateShopActivity.class);
+                startActivity(createShop);
             }
         });
 
