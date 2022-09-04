@@ -53,4 +53,7 @@ public interface NetworkAPI {
     @POST("/apna_mzp/admin/createShop")
     Call<NetworkResponse> createShop(@Body CreateShopPostData shopPostData);
 
+    @POST("/apna_mzp/admin/closeAllShops")
+    Call<NetworkResponse> closeAllShops();
+
 }

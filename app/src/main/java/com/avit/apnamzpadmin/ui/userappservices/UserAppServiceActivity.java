@@ -65,6 +65,7 @@ public class UserAppServiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 userAppDetails.setUserServiceOpen(!userAppDetails.isUserServiceOpen());
+                closeAllShops();
                 setShopStatus();
             }
         });
@@ -81,6 +82,35 @@ public class UserAppServiceActivity extends AppCompatActivity {
                 userAppDetails.setSlurgeReason(slurgeReasonValue);
 
                 updateDataToServer();
+            }
+        });
+
+    }
+
+    private void closeAllShops(){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
+
+        Call<NetworkResponse> call = networkAPI.closeAllShops();
+        call.enqueue(new Callback<NetworkResponse>() {
+            @Override
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getApplicationContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+
+                Toasty.warning(getApplicationContext(),"All Shops are closed",Toasty.LENGTH_SHORT)
+                        .show();
+
+            }
+
+            @Override
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
+                Toasty.error(getApplicationContext(),t.getMessage(),Toasty.LENGTH_SHORT)
+                        .show();
             }
         });
 
