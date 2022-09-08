@@ -6,18 +6,25 @@ import com.avit.apnamzpadmin.models.order.OrderItem;
 import com.avit.apnamzpadmin.models.review.ReviewData;
 import com.avit.apnamzpadmin.models.shop.CreateShopPostData;
 import com.avit.apnamzpadmin.models.shop.ShopData;
+import com.avit.apnamzpadmin.models.shop.ShopItemData;
+import com.avit.apnamzpadmin.models.user.BannerData;
 import com.avit.apnamzpadmin.models.user.UserAppDetails;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetworkAPI {
-    public static String SERVER_URL = "http://192.168.1.5:5000/";
+     String SERVER_URL = "http://192.168.1.3:5000/";
 //    String SERVER_URL = "https://apnamzp.in/";
 
     @GET("/apna_mzp/admin/pendingOrders")
@@ -55,5 +62,15 @@ public interface NetworkAPI {
 
     @POST("/apna_mzp/admin/closeAllShops")
     Call<NetworkResponse> closeAllShops();
+
+    @GET("/apna_mzp/admin/shopItems/{shopMenuItemsId}")
+    Call<List<ShopItemData>> getShopMenuItems(@Path("shopMenuItemsId") String shopMenuItemsId);
+
+    @GET("/user/bannerImages")
+    Call<List<BannerData>> getmainScreenbannerImages();
+
+    @Multipart
+    @POST("/apna_mzp/admin/bannerImages")
+    Call<NetworkResponse> updateBannerImages(@Part MultipartBody.Part bannerImage, @Part("bannerData") RequestBody bannerData);
 
 }
