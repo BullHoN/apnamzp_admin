@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.models.user.BannerData;
@@ -41,6 +42,14 @@ public class BannerImageActivity extends AppCompatActivity implements BannerImag
             @Override
             public void onChanged(List<BannerData> bannerData) {
                 adapter.replaceBannerImages(bannerData);
+            }
+        });
+
+        findViewById(R.id.add_new_banner).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent bannerImagesDetailsIntent = new Intent(getApplicationContext(), BannerImagesDetails.class);
+                startActivity(bannerImagesDetailsIntent);
             }
         });
 

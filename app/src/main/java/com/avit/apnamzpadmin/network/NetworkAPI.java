@@ -71,6 +71,8 @@ public interface NetworkAPI {
 
     @Multipart
     @POST("/apna_mzp/admin/bannerImages")
-    Call<NetworkResponse> updateBannerImages(@Part MultipartBody.Part bannerImage, @Part("bannerData") RequestBody bannerData);
+    Call<NetworkResponse> updateBannerImages(@Part MultipartBody.Part bannerImage,
+                                             @Part("bannerData") RequestBody bannerData,
+                                             @Query("action") String action);
 
 }

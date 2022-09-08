@@ -160,7 +160,7 @@ public class BannerImagesDetails extends AppCompatActivity {
                     bannerData.setShopId(shopIdText.getText().toString());
                 }
 
-                saveBannerImage();
+                saveBannerImage("add");
             }
         });
 
@@ -168,18 +168,18 @@ public class BannerImagesDetails extends AppCompatActivity {
         findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                saveBannerImage("del");
             }
         });
 
     }
 
-    private void saveBannerImage(){
+    private void saveBannerImage(String action){
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
 
         MultipartBody.Part bannerImagePart = null;
-        if(bannerData.getNewImageUrl() != null){
+        if(bannerData.getNewImageUrl() != null && action.equals("add") && !bannerData.getNewImageUrl().contains("http")){
             File file = new File(bannerData.getNewImageUrl());
             RequestBody bannerImageRequestBody = RequestBody.create(MediaType.parse("image/*"),file);
             bannerImagePart = MultipartBody.Part.createFormData("banner_image", file.getName(),bannerImageRequestBody);
@@ -187,7 +187,7 @@ public class BannerImagesDetails extends AppCompatActivity {
 
         RequestBody bannerDataBody = RequestBody.create(MediaType.parse("application/json"),gson.toJson(bannerData));
 
-        Call<NetworkResponse> call = networkAPI.updateBannerImages(bannerImagePart,bannerDataBody);
+        Call<NetworkResponse> call = networkAPI.updateBannerImages(bannerImagePart,bannerDataBody,action);
         call.enqueue(new Callback<NetworkResponse>() {
             @Override
             public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
