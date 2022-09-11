@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.avit.apnamzpadmin.ui.adminshopservice.AdminShopServiceActivity;
 import com.avit.apnamzpadmin.ui.bannerimageservice.BannerImageActivity;
+import com.avit.apnamzpadmin.ui.bulknotification.BulkNotificationActivity;
 import com.avit.apnamzpadmin.ui.createshop.CreateShopActivity;
 import com.avit.apnamzpadmin.ui.deliverysathistatus.DeliverySathisStatusActivity;
 import com.avit.apnamzpadmin.ui.directorder.DirectOrderActivity;
@@ -91,6 +92,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent bannerImages = new Intent(getApplicationContext(), BannerImageActivity.class);
                 startActivity(bannerImages);
+            }
+        });
+
+        findViewById(R.id.bulk_notification).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent bulkNotification = new Intent(getApplicationContext(), BulkNotificationActivity.class);
+                startActivity(bulkNotification);
             }
         });
 

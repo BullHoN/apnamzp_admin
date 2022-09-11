@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".ui.directorder.DirectOrderActivity">
+    tools:context=".ui.bulknotification.BulkNotificationActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Create Direct Order"
+                    android:text="Bulk Notification"
                     android:textColor="@color/white"
                     android:textSize="24sp" />
 
@@ -53,111 +53,77 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <LinearLayout
-                android:gravity="center"
+            <ImageView
+                android:id="@+id/notification_image"
+                android:src="@mipmap/ic_launcher"
+                android:scaleType="fitCenter"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:layout_height="200dp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:hint="Enter Shop Name" >
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/shop_name"
-                        android:layout_width="match_parent"
-                        android:imeOptions="actionSearch"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <ImageButton
-                    android:id="@+id/search_shop"
-                    android:background="@drawable/ic_baseline_search_24"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp" />
-
-            </LinearLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:hint="Customer Phone No." >
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customer_phoneNo"
-                    android:layout_width="match_parent"
-                    android:imeOptions="actionSearch"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:hint="Customer latitude" >
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customer_latitude"
-                    android:layout_width="match_parent"
-                    android:imeOptions="actionSearch"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:hint="Customer Longitude" >
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customer_longtitude"
-                    android:layout_width="match_parent"
-                    android:imeOptions="actionSearch"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:layout_marginTop="12dp"
-                android:text="Order Items"
+                android:layout_marginTop="24dp"
+                android:text="Notification Type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <Spinner
                 android:layout_marginTop="8dp"
-                android:id="@+id/order_items"
+                android:id="@+id/notification_type_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:itemCount="2"
-                tools:listitem="@layout/item_cart" />
+                android:hint="Title"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/notification_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Desc"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/notification_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Shop Id"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/notification_shopId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/addOrderItem"
-                android:text="Add Order Item"
+                android:id="@+id/test_notification_button"
+                android:text="Send Test Notification"
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-
             <com.google.android.material.button.MaterialButton
-                android:layout_marginTop="24dp"
-                android:id="@+id/assign_delivery_sathi"
-                android:text="Assign Delivery Sathi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/placeOrder"
-                android:text="Place order"
+                android:id="@+id/bulk_notification_button"
+                android:text="Send Bulk Notification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

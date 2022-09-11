@@ -55,4 +55,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bulk_notification"
+        android:text="Send Bulk Notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
 </LinearLayout>

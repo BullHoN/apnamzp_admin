@@ -42,7 +42,8 @@ public class DirectOrderActivity extends AppCompatActivity {
     private DirectOrderViewModel viewModel;
     private ShopData shopData;
     private RecyclerView orderItemsView;
-    private String TAG = "DirectOrderActivity";
+    private OrderItemsAdapter orderMenuItemsAdapter;
+    private String TAG = "DirectOrderActivitys";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class DirectOrderActivity extends AppCompatActivity {
 
         shopNameEditText = findViewById(R.id.shop_name);
         orderItemsView = findViewById(R.id.order_items);
+        orderItems = new ArrayList<>();
 
         findViewById(R.id.search_shop).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +62,11 @@ public class DirectOrderActivity extends AppCompatActivity {
                 viewModel.searchShop(getApplicationContext(),shopName);
             }
         });
+
+        orderItemsView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        orderMenuItemsAdapter = new OrderItemsAdapter(new ArrayList<>(),this);
+        orderItemsView.setAdapter(orderMenuItemsAdapter);
+
 
         viewModel.getMutableShopLiveData().observe(this, new Observer<List<ShopData>>() {
             @Override
@@ -76,6 +83,15 @@ public class DirectOrderActivity extends AppCompatActivity {
             }
         });
 
+
+
+        findViewById(R.id.placeOrder).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "onClick: " + orderItems.size());
+            }
+        });
+
     }
 
     private void showSearchDialog(){
@@ -88,6 +104,7 @@ public class DirectOrderActivity extends AppCompatActivity {
         MenuItemsAdapter menuItemsAdapter = new MenuItemsAdapter(this, allShopItems, new MenuItemsAdapter.MenuItemsActions() {
             @Override
             public void addToOrderItems(ShopItemData shopItemData) {
+                Log.i(TAG, "addToOrderItems: " + shopItemData.getName());
                 showItemPricingDialog(shopItemData);
             }
         });
@@ -137,8 +154,11 @@ public class DirectOrderActivity extends AppCompatActivity {
                 shopItemData.setPricings(newPricings);
 
                 orderItems.add(shopItemData);
+                orderMenuItemsAdapter.replaceItems(orderItems);
             }
         });
+
+        builder.show();
 
     }
 

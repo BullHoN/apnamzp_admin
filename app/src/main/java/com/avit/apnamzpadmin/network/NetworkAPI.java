@@ -75,4 +75,10 @@ public interface NetworkAPI {
                                              @Part("bannerData") RequestBody bannerData,
                                              @Query("action") String action);
 
+    @Multipart
+    @POST("/apna_mzp/admin/sendBulkNotification")
+    Call<NetworkResponse> sendBulkNotification(@Part MultipartBody.Part notificationImage,
+                                               @Part("notificationData") RequestBody notificationData,
+                                               @Query("test_notification_number") String testNotificationNumber);
+
 }
