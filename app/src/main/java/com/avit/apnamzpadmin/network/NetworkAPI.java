@@ -81,4 +81,8 @@ public interface NetworkAPI {
                                                @Part("notificationData") RequestBody notificationData,
                                                @Query("test_notification_number") String testNotificationNumber);
 
+
+    @POST("/apna_mzp/admin/direct-order")
+    Call<NetworkResponse> createDirectOrder(@Body OrderItem orderItem);
+
 }

@@ -6,6 +6,22 @@ public class BillingDetails {
     private int freeDeliveryPrice;
     private String taxPercentage;
     private Boolean isDeliveryService;
+    private int processingFee;
+
+    public BillingDetails(int deliveryCharge, int itemTotal, int offerDiscountedAmount, int totalDiscount, int totalTaxesAndPackingCharge, int totalPay, int itemsOnTheWayTotalCost, int itemsOnTheWayActualCost, int freeDeliveryPrice, String taxPercentage, Boolean isDeliveryService, int processingFee) {
+        this.deliveryCharge = deliveryCharge;
+        this.itemTotal = itemTotal;
+        this.offerDiscountedAmount = offerDiscountedAmount;
+        this.totalDiscount = totalDiscount;
+        this.totalTaxesAndPackingCharge = totalTaxesAndPackingCharge;
+        this.totalPay = totalPay;
+        this.itemsOnTheWayTotalCost = itemsOnTheWayTotalCost;
+        this.itemsOnTheWayActualCost = itemsOnTheWayActualCost;
+        this.freeDeliveryPrice = freeDeliveryPrice;
+        this.taxPercentage = taxPercentage;
+        this.isDeliveryService = isDeliveryService;
+        this.processingFee = processingFee;
+    }
 
     public BillingDetails(int deliveryCharge, int itemTotal, int offerDiscountedAmount, int totalDiscount, int totalTaxesAndPackingCharge, int totalPay, int itemsOnTheWayTotalCost, int itemsOnTheWayActualCost, int freeDeliveryPrice, String taxPercentage, Boolean isDeliveryService) {
         this.deliveryCharge = deliveryCharge;
@@ -65,6 +81,10 @@ public class BillingDetails {
         this.totalTaxesAndPackingCharge = totalTaxesAndPackingCharge;
         this.totalPay = totalPay;
         this.isDeliveryService = isDeliveryService;
+    }
+
+    public int getProcessingFee() {
+        return processingFee;
     }
 
     public void setFreeDeliveryPrice(int freeDeliveryPrice) {

@@ -17,12 +17,16 @@ import android.widget.ArrayAdapter;
 
 import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.models.network.NetworkResponse;
+import com.avit.apnamzpadmin.models.order.BillingDetails;
+import com.avit.apnamzpadmin.models.order.OrderItem;
 import com.avit.apnamzpadmin.models.shop.ShopData;
 import com.avit.apnamzpadmin.models.shop.ShopItemData;
 import com.avit.apnamzpadmin.models.shop.ShopPricingData;
+import com.avit.apnamzpadmin.models.user.UserInfo;
 import com.avit.apnamzpadmin.network.NetworkAPI;
 import com.avit.apnamzpadmin.network.RetrofitClient;
 import com.avit.apnamzpadmin.utils.ErrorUtils;
+import com.avit.apnamzpadmin.utils.PrettyStrings;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -43,6 +47,10 @@ public class DirectOrderActivity extends AppCompatActivity {
     private ShopData shopData;
     private RecyclerView orderItemsView;
     private OrderItemsAdapter orderMenuItemsAdapter;
+    private TextInputEditText itemTotalView, totalItemDiscountView, totalTaxesAndPackingChargeView,
+            totalPayView, processingFeeView, expectedDeliveryTimeView, actualDistanceView, customerPhoneNo,
+            customerLatituteView, customerLongtitudeView, customerRawAddressView,deliveryChargeView;
+    private OrderItem currOrderItem;
     private String TAG = "DirectOrderActivitys";
 
     @Override
@@ -50,8 +58,23 @@ public class DirectOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_direct_order);
         viewModel = new ViewModelProvider(this).get(DirectOrderViewModel.class);
+        currOrderItem = new OrderItem();
 
         shopNameEditText = findViewById(R.id.shop_name);
+        itemTotalView = findViewById(R.id.itemTotal);
+        totalItemDiscountView = findViewById(R.id.totalDiscount);
+        totalTaxesAndPackingChargeView = findViewById(R.id.totalTaxesAndPackingCharge);
+        totalPayView = findViewById(R.id.totalPay);
+        processingFeeView = findViewById(R.id.processingFee);
+        expectedDeliveryTimeView = findViewById(R.id.expectedDeliveryTime);
+        actualDistanceView = findViewById(R.id.actualDistance);
+        customerPhoneNo = findViewById(R.id.customer_phoneNo);
+        customerLatituteView = findViewById(R.id.customer_latitude);
+        customerLongtitudeView = findViewById(R.id.customer_longtitude);
+        customerRawAddressView = findViewById(R.id.customer_raw_address);
+        deliveryChargeView = findViewById(R.id.deliveryCharge);
+
+
         orderItemsView = findViewById(R.id.order_items);
         orderItems = new ArrayList<>();
 
@@ -64,7 +87,8 @@ public class DirectOrderActivity extends AppCompatActivity {
         });
 
         orderItemsView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        orderMenuItemsAdapter = new OrderItemsAdapter(new ArrayList<>(),this);
+        orderMenuItemsAdapter = new OrderItemsAdapter(new ArrayList<>(),this,
+                itemTotalView,totalItemDiscountView,totalTaxesAndPackingChargeView);
         orderItemsView.setAdapter(orderMenuItemsAdapter);
 
 
@@ -88,10 +112,64 @@ public class DirectOrderActivity extends AppCompatActivity {
         findViewById(R.id.placeOrder).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i(TAG, "onClick: " + orderItems.size());
+                placeOrder();
             }
         });
 
+    }
+
+    private void placeOrder(){
+        currOrderItem.setOrderItems(orderItems);
+        currOrderItem.setBillingDetails(new BillingDetails(
+                getValueFromView(deliveryChargeView), getValueFromView(itemTotalView), 0,
+                getValueFromView(totalItemDiscountView), getValueFromView(totalTaxesAndPackingChargeView),
+                getValueFromView(totalPayView), 0, 0, 5000,
+                "0",true, getValueFromView(processingFeeView)));
+
+        currOrderItem.setDeliveryAddress(new UserInfo(null,getTextFromView(customerLatituteView),
+                getTextFromView(customerLongtitudeView), null, getTextFromView(customerRawAddressView)));
+
+        currOrderItem.setUserId(getTextFromView(customerPhoneNo));
+        
+        currOrderItem.setActualDistance(getTextFromView(actualDistanceView));
+        currOrderItem.setExpectedDeliveryTime(getTextFromView(expectedDeliveryTimeView));
+
+        currOrderItem.setPaymentReceivedToShop(true);
+
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
+
+        Call<NetworkResponse> call = networkAPI.createDirectOrder(currOrderItem);
+        call.enqueue(new Callback<NetworkResponse>() {
+            @Override
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getApplicationContext(),errorResponse.getDesc(),Toasty.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
+                Toasty.success(getApplicationContext(),"order created",Toasty.LENGTH_LONG)
+                        .show();
+            }
+
+            @Override
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
+                Toasty.error(getApplicationContext(),t.getMessage(),Toasty.LENGTH_LONG)
+                        .show();
+            }
+        });
+
+
+    }
+
+    private int getValueFromView(TextInputEditText view){
+        return Integer.parseInt(view.getText().toString());
+    }
+
+    private String getTextFromView(TextInputEditText view){
+        return view.getText().toString();
     }
 
     private void showSearchDialog(){
@@ -154,6 +232,7 @@ public class DirectOrderActivity extends AppCompatActivity {
                 shopItemData.setPricings(newPricings);
 
                 orderItems.add(shopItemData);
+//                updateBillingdetails();
                 orderMenuItemsAdapter.replaceItems(orderItems);
             }
         });
@@ -177,6 +256,7 @@ public class DirectOrderActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 shopData = shopDataList.get(i);
                 shopNameEditText.setText(shopData.getName());
+                currOrderItem.setShopID(shopData.get_id());
                 getShopMenuItems(shopData.getMenuItemsID());
             }
         });

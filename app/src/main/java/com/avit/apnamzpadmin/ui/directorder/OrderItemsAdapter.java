@@ -1,6 +1,7 @@
 package com.avit.apnamzpadmin.ui.directorder;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.models.order.OrderItem;
 import com.avit.apnamzpadmin.models.shop.ShopItemData;
 import com.avit.apnamzpadmin.utils.PrettyStrings;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
@@ -22,10 +24,15 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Or
 
     private List<ShopItemData> orderItems;
     private Context context;
+    TextInputEditText itemTotalView, totalItemDiscountView, totalTaxesAndPackingChargeView;
+    private String TAG = "OrderItemsAdapter";
 
-    public OrderItemsAdapter(List<ShopItemData> orderItems, Context context) {
+    public OrderItemsAdapter(List<ShopItemData> orderItems, Context context, TextInputEditText itemTotalView, TextInputEditText totalItemDiscountView, TextInputEditText totalTaxesAndPackingChargeView) {
         this.orderItems = orderItems;
         this.context = context;
+        this.itemTotalView = itemTotalView;
+        this.totalItemDiscountView = totalItemDiscountView;
+        this.totalTaxesAndPackingChargeView = totalTaxesAndPackingChargeView;
     }
 
     @NonNull
@@ -47,6 +54,7 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Or
             @Override
             public void onClick(View view) {
                 curr.setQuantity(curr.getQuantity()+1);
+                updateBillingdetails();
                 notifyDataSetChanged();
             }
         });
@@ -55,17 +63,34 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Or
             @Override
             public void onClick(View view) {
                 curr.setQuantity(curr.getQuantity()-1);
+                updateBillingdetails();
                 notifyDataSetChanged();
+
             }
         });
 
         holder.deleteView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                orderItems.remove(position);
+                orderItems.remove(holder.getAdapterPosition());
+                updateBillingdetails();
                 notifyDataSetChanged();
             }
         });
+
+    }
+
+    private void updateBillingdetails(){
+        int items_total = 0, taxAndPacakgingCharge = 0, totalItemDiscount = 0;
+        for(ShopItemData item : orderItems){
+            items_total += Integer.parseInt(item.getPricings().get(0).getPrice()) * item.getQuantity();
+            taxAndPacakgingCharge += Integer.parseInt(item.getTaxOrPackigingPrice()) * item.getQuantity();
+            totalItemDiscount += Integer.parseInt(item.getDiscount()) * item.getQuantity();
+        }
+
+        itemTotalView.setText(String.valueOf(items_total));
+        totalTaxesAndPackingChargeView.setText(String.valueOf(taxAndPacakgingCharge));
+        totalItemDiscountView.setText(String.valueOf(totalItemDiscount));
 
     }
 

@@ -21,6 +21,16 @@ public class OrderItem {
     private boolean orderAcceptedByDeliverySathi;
     private BillingDetails billingDetails;
     private String offerCode;
+    private String shopID;
+    private String userId;
+    private UserInfo deliveryAddress;
+    private String expectedDeliveryTime;
+    private Boolean paymentReceivedToShop;
+    private String actualDistance;
+
+    public OrderItem(){
+
+    }
 
     public OrderItem(String _id, List<ShopItemData> orderItems, UserInfo shopInfo, UserInfo userInfo, Integer orderStatus, List<String> itemsOnTheWay, boolean itemsOnTheWayVisible, Integer totalAmountToTake, Integer totalAmountToGive, boolean isPaid, boolean itemsOnTheWayCancelled, int itemsOnTheWayActualCost, boolean orderAcceptedByDeliverySathi, BillingDetails billingDetails, String offerCode) {
         this._id = _id;
@@ -161,6 +171,110 @@ public class OrderItem {
         this.shopInfo = shopInfo;
         this.userInfo = userInfo;
         this.orderStatus = orderStatus;
+    }
+
+    public String getActualDistance() {
+        return actualDistance;
+    }
+
+    public void setActualDistance(String actualDistance) {
+        this.actualDistance = actualDistance;
+    }
+
+    public void setPaymentReceivedToShop(Boolean paymentReceivedToShop) {
+        this.paymentReceivedToShop = paymentReceivedToShop;
+    }
+
+    public Boolean getPaymentReceivedToShop() {
+        return paymentReceivedToShop;
+    }
+
+    public String getExpectedDeliveryTime() {
+        return expectedDeliveryTime;
+    }
+
+    public void setExpectedDeliveryTime(String expectedDeliveryTime) {
+        this.expectedDeliveryTime = expectedDeliveryTime;
+    }
+
+    public void setDeliveryAddress(UserInfo deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    public UserInfo getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public String getShopID() {
+        return shopID;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setShopID(String shopID) {
+        this.shopID = shopID;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public void setOrderItems(List<ShopItemData> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public void setShopInfo(UserInfo shopInfo) {
+        this.shopInfo = shopInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public void setItemsOnTheWay(List<String> itemsOnTheWay) {
+        this.itemsOnTheWay = itemsOnTheWay;
+    }
+
+    public void setTotalAmountToTake(Integer totalAmountToTake) {
+        this.totalAmountToTake = totalAmountToTake;
+    }
+
+    public void setTotalAmountToGive(Integer totalAmountToGive) {
+        this.totalAmountToGive = totalAmountToGive;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
+
+    public void setItemsOnTheWayCancelled(boolean itemsOnTheWayCancelled) {
+        this.itemsOnTheWayCancelled = itemsOnTheWayCancelled;
+    }
+
+    public void setItemsOnTheWayActualCost(int itemsOnTheWayActualCost) {
+        this.itemsOnTheWayActualCost = itemsOnTheWayActualCost;
+    }
+
+    public void setOrderAcceptedByDeliverySathi(boolean orderAcceptedByDeliverySathi) {
+        this.orderAcceptedByDeliverySathi = orderAcceptedByDeliverySathi;
+    }
+
+    public void setBillingDetails(BillingDetails billingDetails) {
+        this.billingDetails = billingDetails;
+    }
+
+    public void setOfferCode(String offerCode) {
+        this.offerCode = offerCode;
     }
 
     public String getOfferCode() {

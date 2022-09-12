@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.models.shop.ShopItemData;
+import com.avit.apnamzpadmin.utils.PrettyStrings;
 
 import java.util.List;
 
@@ -42,7 +43,9 @@ public class MenuItemsAdapter extends RecyclerView.Adapter<MenuItemsAdapter.Menu
     public void onBindViewHolder(@NonNull MenuItemsViewHolder holder, int position) {
         ShopItemData curr = menuItems.get(position);
 
+        holder.priceView.setText(PrettyStrings.getPriceInRupees(curr.getPricings().get(0).getPrice()));
         holder.nameView.setText(curr.getName());
+
         holder.itemContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,12 +68,13 @@ public class MenuItemsAdapter extends RecyclerView.Adapter<MenuItemsAdapter.Menu
 
     public class MenuItemsViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView nameView;
+        public TextView nameView, priceView;
         public CardView itemContainer;
 
         public MenuItemsViewHolder(@NonNull View itemView) {
             super(itemView);
             nameView = itemView.findViewById(R.id.itemName);
+            priceView = itemView.findViewById(R.id.itemPrice);
             itemContainer = itemView.findViewById(R.id.item_container);
         }
     }
