@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Switch;
 
 import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.models.network.NetworkResponse;
@@ -51,6 +52,7 @@ public class DirectOrderActivity extends AppCompatActivity {
             totalPayView, processingFeeView, expectedDeliveryTimeView, actualDistanceView, customerPhoneNo,
             customerLatituteView, customerLongtitudeView, customerRawAddressView,deliveryChargeView;
     private OrderItem currOrderItem;
+    private Switch adminShopServiceSwitch;
     private String TAG = "DirectOrderActivitys";
 
     @Override
@@ -73,6 +75,7 @@ public class DirectOrderActivity extends AppCompatActivity {
         customerLongtitudeView = findViewById(R.id.customer_longtitude);
         customerRawAddressView = findViewById(R.id.customer_raw_address);
         deliveryChargeView = findViewById(R.id.deliveryCharge);
+        adminShopServiceSwitch = findViewById(R.id.admin_shop_service);
 
 
         orderItemsView = findViewById(R.id.order_items);
@@ -130,7 +133,12 @@ public class DirectOrderActivity extends AppCompatActivity {
                 getTextFromView(customerLongtitudeView), null, getTextFromView(customerRawAddressView)));
 
         currOrderItem.setUserId(getTextFromView(customerPhoneNo));
-        currOrderItem.setOrderStatus(4);
+
+        if(adminShopServiceSwitch.isChecked()){
+            currOrderItem.setOrderStatus(4);
+        }
+
+        currOrderItem.setAdminShopService(adminShopServiceSwitch.isChecked());
 
         currOrderItem.setActualDistance(getTextFromView(actualDistanceView));
         currOrderItem.setExpectedDeliveryTime(getTextFromView(expectedDeliveryTimeView));
@@ -258,6 +266,7 @@ public class DirectOrderActivity extends AppCompatActivity {
                 shopData = shopDataList.get(i);
                 shopNameEditText.setText(shopData.getName());
                 currOrderItem.setShopID(shopData.get_id());
+                currOrderItem.setShopCategory(shopData.getShopType());
                 getShopMenuItems(shopData.getMenuItemsID());
             }
         });

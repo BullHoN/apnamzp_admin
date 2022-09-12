@@ -27,6 +27,8 @@ public class OrderItem {
     private String expectedDeliveryTime;
     private Boolean paymentReceivedToShop;
     private String actualDistance;
+    private boolean adminShopService;
+    private String shopCategory;
 
     public OrderItem(){
 
@@ -173,10 +175,25 @@ public class OrderItem {
         this.orderStatus = orderStatus;
     }
 
+    public void setShopCategory(String shopCategory) {
+        this.shopCategory = shopCategory;
+    }
+
+    public String getShopCategory() {
+        return shopCategory;
+    }
+
     public String getActualDistance() {
         return actualDistance;
     }
 
+    public void setAdminShopService(boolean adminShopService) {
+        this.adminShopService = adminShopService;
+    }
+
+    public boolean isAdminShopService() {
+        return adminShopService;
+    }
 
     public void setActualDistance(String actualDistance) {
         this.actualDistance = actualDistance;
