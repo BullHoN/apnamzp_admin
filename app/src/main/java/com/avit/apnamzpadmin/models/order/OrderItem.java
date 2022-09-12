@@ -177,6 +177,7 @@ public class OrderItem {
         return actualDistance;
     }
 
+
     public void setActualDistance(String actualDistance) {
         this.actualDistance = actualDistance;
     }

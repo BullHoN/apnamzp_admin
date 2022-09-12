@@ -130,7 +130,8 @@ public class DirectOrderActivity extends AppCompatActivity {
                 getTextFromView(customerLongtitudeView), null, getTextFromView(customerRawAddressView)));
 
         currOrderItem.setUserId(getTextFromView(customerPhoneNo));
-        
+        currOrderItem.setOrderStatus(4);
+
         currOrderItem.setActualDistance(getTextFromView(actualDistanceView));
         currOrderItem.setExpectedDeliveryTime(getTextFromView(expectedDeliveryTimeView));
 
