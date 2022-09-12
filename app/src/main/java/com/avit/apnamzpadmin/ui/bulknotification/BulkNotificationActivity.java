@@ -3,15 +3,19 @@ package com.avit.apnamzpadmin.ui.bulknotification;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -136,8 +140,51 @@ public class BulkNotificationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                String title, desc, shopId;
+
+                title =  titleView.getText().toString();
+                desc = descView.getText().toString();
+                shopId = shopIdView.getText().toString();
+
+                if(title.length() == 0 || desc.length() == 0){
+                    return;
+                }
+
+                notificationPostBody.setTitle(title);
+                notificationPostBody.setDesc(desc);
+
+                if(shopId.length() != 0){
+                    notificationPostBody.setShopId(shopId);
+                }
+
+                openTestNotificationDialog();
             }
         });
+
+    }
+
+    private void openTestNotificationDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        EditText phoneNoView = new EditText(this);
+        builder.setView(phoneNoView);
+
+        builder.setTitle("Enter Phone Number");
+
+        builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                sendBulkNotification(phoneNoView.getText().toString());
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.show();
 
     }
 
@@ -185,7 +232,11 @@ public class BulkNotificationActivity extends AppCompatActivity {
 
                 Toasty.success(getApplicationContext(),"Notification Send Successfully",Toasty.LENGTH_SHORT)
                         .show();
-                finish();
+
+                if(testPhoneNo == null){
+                    finish();
+                }
+
             }
 
             @Override
