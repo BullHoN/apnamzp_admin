@@ -51,7 +51,7 @@ public class BannerImagesDetails extends AppCompatActivity {
     private Spinner bannertypesSpinner;
     private ImageView bannerImage;
     private TextInputEditText shopIdText;
-    String[] bannertypes = { "display_banner", "open_shop" };
+    String[] bannertypes = { "display_banner", "open_shop", "open_search" };
     private ActivityResultLauncher<Intent> bannerImagePickerLauncher;
     private String TAG = "BannerImagesDetails";
 
@@ -86,7 +86,7 @@ public class BannerImagesDetails extends AppCompatActivity {
                 }
                 else {
                     shopIdText.setVisibility(View.VISIBLE);
-                    bannerData.setAction("open_shop");
+                    bannerData.setAction(bannertypes[position]);
                 }
             }
 
