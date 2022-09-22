@@ -85,4 +85,7 @@ public interface NetworkAPI {
     @POST("/apna_mzp/admin/direct-order")
     Call<NetworkResponse> createDirectOrder(@Body OrderItem orderItem);
 
+    @POST("/partner/changeShopStatus")
+    Call<NetworkResponse> changeShopStatus(@Query("phoneNo") String phoneNo, @Query("isOpen") boolean isOpen);
+
 }

@@ -47,6 +47,8 @@ public class GetOrdersActivity extends AppCompatActivity implements OrdersAdapte
         gson = new Gson();
         viewModel = new ViewModelProvider(this).get(GetOrdersViewModel.class);
 
+        viewModel.getOrders(getApplicationContext(),null);
+
         SearchView searchView =  findViewById(R.id.search_orders);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.avit.apnamzpadmin.ui.editshop.EditShopService;
 import com.avit.apnamzpadmin.ui.adminshopservice.AdminShopServiceActivity;
 import com.avit.apnamzpadmin.ui.bannerimageservice.BannerImageActivity;
 import com.avit.apnamzpadmin.ui.bulknotification.BulkNotificationActivity;
@@ -20,7 +21,6 @@ import com.avit.apnamzpadmin.ui.userappservices.UserAppServiceActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -100,6 +100,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent bulkNotification = new Intent(getApplicationContext(), BulkNotificationActivity.class);
                 startActivity(bulkNotification);
+            }
+        });
+
+        findViewById(R.id.edit_shop).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent editShopIntent = new Intent(getApplicationContext(), EditShopService.class);
+                startActivity(editShopIntent);
             }
         });
 

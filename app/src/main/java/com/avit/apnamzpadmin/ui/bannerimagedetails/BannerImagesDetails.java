@@ -150,13 +150,13 @@ public class BannerImagesDetails extends AppCompatActivity {
                     return;
                 }
 
-                if(bannerData.getAction().equals("open_shop") && shopIdText.getText().toString().length() == 0){
+                if(!bannerData.getAction().equals("display_banner") && shopIdText.getText().toString().length() == 0){
                     Toasty.error(getApplicationContext(),"Enter Valid Shop Id",Toasty.LENGTH_LONG)
                             .show();
                     return;
                 }
 
-                if(bannerData.getAction().equals("open_shop")){
+                if(!bannerData.getAction().equals("display_banner")){
                     bannerData.setShopId(shopIdText.getText().toString());
                 }
 
