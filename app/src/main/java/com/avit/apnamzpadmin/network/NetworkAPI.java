@@ -1,5 +1,6 @@
 package com.avit.apnamzpadmin.network;
 
+import com.avit.apnamzpadmin.models.admin.ServiceStatus;
 import com.avit.apnamzpadmin.models.deliverysathi.DeliverySathiStatus;
 import com.avit.apnamzpadmin.models.network.NetworkResponse;
 import com.avit.apnamzpadmin.models.order.OrderItem;
@@ -24,8 +25,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetworkAPI {
-//     String SERVER_URL = "http://192.168.1.3:5000/";
-    String SERVER_URL = "https://apnamzp.in/";
+     String SERVER_URL = "http://192.168.1.4:5000/";
+//    String SERVER_URL = "https://apnamzp.in/";
 
     @GET("/apna_mzp/admin/pendingOrders")
     Call<List<OrderItem>> getPendingOrders();
@@ -87,5 +88,11 @@ public interface NetworkAPI {
 
     @POST("/partner/changeShopStatus")
     Call<NetworkResponse> changeShopStatus(@Query("phoneNo") String phoneNo, @Query("isOpen") boolean isOpen);
+
+    @GET("/user/serviceStatus")
+    Call<ServiceStatus> getServiceStatus();
+
+    @POST("/apna_mzp/admin/service-status")
+    Call<NetworkResponse> changeServiceStatus(@Body ServiceStatus serviceStatus);
 
 }

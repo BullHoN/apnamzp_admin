@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ApnaMzpAdmin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.servicestatus.ServiceStatusActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.editshop.EditShopService"
             android:exported="false" />
         <activity

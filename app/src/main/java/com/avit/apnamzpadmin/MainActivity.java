@@ -17,6 +17,7 @@ import com.avit.apnamzpadmin.ui.deliverysathistatus.DeliverySathisStatusActivity
 import com.avit.apnamzpadmin.ui.directorder.DirectOrderActivity;
 import com.avit.apnamzpadmin.ui.getorderservice.GetOrdersActivity;
 import com.avit.apnamzpadmin.ui.reviewservice.ReviewService;
+import com.avit.apnamzpadmin.ui.servicestatus.ServiceStatusActivity;
 import com.avit.apnamzpadmin.ui.userappservices.UserAppServiceActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -108,6 +109,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent editShopIntent = new Intent(getApplicationContext(), EditShopService.class);
                 startActivity(editShopIntent);
+            }
+        });
+
+        findViewById(R.id.service_status).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent serviceStatusIntent = new Intent(getApplicationContext(), ServiceStatusActivity.class);
+                startActivity(serviceStatusIntent);
             }
         });
 
