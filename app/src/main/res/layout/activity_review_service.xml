@@ -47,6 +47,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:nestedScrollingEnabled="false"
             android:layout_below="@id/header"
             android:id="@+id/review_items"
             tools:itemCount="2"

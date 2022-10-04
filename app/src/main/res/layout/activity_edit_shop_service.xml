@@ -45,6 +45,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+
+            <Switch
+                android:id="@+id/isAdminShopService"
+                android:layout_marginTop="12dp"
+                android:text="Stall Shop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/save"
                 android:layout_marginTop="12dp"

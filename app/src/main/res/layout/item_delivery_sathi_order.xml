@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/toggle_delivery_sathi_order_visibility"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true" >
+
+        <LinearLayout
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/shop_name_title"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/primaryColor"
+                android:text="Shop Name: knkdfngk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:background="@drawable/ic_baseline_keyboard_arrow_down_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/curr_order_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/curr_order_status_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:text="From Shop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/shop_name"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginTop="8dp"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:background="@color/primaryColor"
+                android:text="Up63 Cafe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/shop_phoneNo"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginTop="8dp"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:background="@color/primaryColor"
+                android:text="+91 9997403324"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/shop_address"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginTop="8dp"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:background="@color/primaryColor"
+                android:text="Show on Map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:text="To Customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/user_phoneNo"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginTop="8dp"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:background="@color/primaryColor"
+                android:text="+91 9997403324"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/user_address"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginTop="8dp"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:background="@color/primaryColor"
+                android:text="Show on Map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

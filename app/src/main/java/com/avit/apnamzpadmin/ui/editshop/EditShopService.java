@@ -33,7 +33,7 @@ public class EditShopService extends AppCompatActivity {
     private SearchView searchView;
     private EditShopViewModel viewModel;
     private TextInputEditText shopNameView;
-    private Switch isOpenView;
+    private Switch isOpenView, isAdminShopService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class EditShopService extends AppCompatActivity {
         searchView = findViewById(R.id.search_bar);
         shopNameView = findViewById(R.id.shopName);
         isOpenView = findViewById(R.id.isOpen);
+        isAdminShopService = findViewById(R.id.isAdminShopService);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -78,7 +79,7 @@ public class EditShopService extends AppCompatActivity {
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
 
-        Call<NetworkResponse> call = networkAPI.changeShopStatus(shopData.getPhoneNO(),isOpenView.isChecked());
+        Call<NetworkResponse> call = networkAPI.changeShopStatus(shopData.getPhoneNO(),isOpenView.isChecked(),isAdminShopService.isChecked());
         call.enqueue(new Callback<NetworkResponse>() {
             @Override
             public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
@@ -120,6 +121,7 @@ public class EditShopService extends AppCompatActivity {
                 shopData = shopDataList.get(i);
                 shopNameView.setText(shopData.getName());
                 isOpenView.setChecked(shopData.isOpen());
+                isAdminShopService.setChecked(shopData.isAdminShopService());
             }
         });
 

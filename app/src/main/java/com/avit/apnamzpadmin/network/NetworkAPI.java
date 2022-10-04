@@ -87,7 +87,7 @@ public interface NetworkAPI {
     Call<NetworkResponse> createDirectOrder(@Body OrderItem orderItem);
 
     @POST("/partner/changeShopStatus")
-    Call<NetworkResponse> changeShopStatus(@Query("phoneNo") String phoneNo, @Query("isOpen") boolean isOpen);
+    Call<NetworkResponse> changeShopStatus(@Query("phoneNo") String phoneNo, @Query("isOpen") boolean isOpen, @Query("adminShopService") boolean isAdminShopService);
 
     @GET("/user/serviceStatus")
     Call<ServiceStatus> getServiceStatus();

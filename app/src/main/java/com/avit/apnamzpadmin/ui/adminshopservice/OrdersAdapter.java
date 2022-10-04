@@ -84,6 +84,15 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
         holder.customerName.setText("Name: " + curr.getUserInfo().getName());
         holder.customerAddress.setText("Address: " + curr.getUserInfo().getRawAddress());
 
+        if(!curr.isPaid()){
+            holder.orderPaymentStatusView.setBackgroundColor(context.getResources().getColor(R.color.errorColor));
+            holder.orderPaymentStatusView.setText("COD");
+        }
+
+        if(curr.getItemsOnTheWay().size() > 0){
+            holder.itemsOnTheWayToggleButton.setBackgroundColor(context.getResources().getColor(R.color.infoColor));
+        }
+
         holder.customerAddressContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,9 +201,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
 
                 switch (menuItem.getItemId()){
                     case R.id.cancel_order:
-                        ordersActions.cancelOrder(order_id,"No Delivery Sathi Found");
-                        orderItems.remove(orderItem);
-                        notifyDataSetChanged();
+                        openCancelReasonDialog(order_id, orderItem);
                         return true;
                     case R.id.add_delivery_sathi_income:
                         addDeliverySathiIncome(order_id);
@@ -210,6 +217,40 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
         });
 
         popupMenu.show();
+    }
+
+    private void openCancelReasonDialog(String orderId, OrderItem orderItem){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        View cancelReasonView = LayoutInflater.from(context).inflate(R.layout.dialog_cancel_reason,null,false);
+
+        builder.setView(cancelReasonView);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        TextInputEditText rejectReason = cancelReasonView.findViewById(R.id.reject_reason);
+
+
+        LinearLayout rejectButtn = cancelReasonView.findViewById(R.id.reject_order_button);
+        rejectButtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // reject the upcomming order
+                String reason = rejectReason.getText().toString();
+                if (reason.length() < 3) {
+                    Toasty.error(context, "Enter Valid Reason", Toasty.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
+                ordersActions.cancelOrder(orderId,reason);
+                orderItems.remove(orderItem);
+                notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+
     }
 
     private void openOrderDetails(OrderItem orderItem){
@@ -271,6 +312,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
         public ImageButton moreActionsMenuButton;
         public TextView totalAmountToTakeView, totalAmountToGiveView;
         public LinearLayout customerAddressContainer, shopAddressContainer;
+        public TextView orderPaymentStatusView;
 
         public OrdersAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -297,6 +339,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
 
             customerAddressContainer = itemView.findViewById(R.id.customer_address_container);
             shopAddressContainer = itemView.findViewById(R.id.shop_address_container);
+
+            orderPaymentStatusView = itemView.findViewById(R.id.order_payment_status);
 
         }
     }
