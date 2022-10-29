@@ -8,10 +8,16 @@ public class DeliverySathiStatus {
 
     private UserInfo deliverySathi;
     private List<DeliverySathiOrderDetails> orderDetailsList;
+    private int currOrders;
 
-    public DeliverySathiStatus(UserInfo deliverySathi, List<DeliverySathiOrderDetails> orderDetailsList) {
+    public DeliverySathiStatus(UserInfo deliverySathi, List<DeliverySathiOrderDetails> orderDetailsList, int currOrders) {
         this.deliverySathi = deliverySathi;
         this.orderDetailsList = orderDetailsList;
+        this.currOrders = currOrders;
+    }
+
+    public int getCurrOrders() {
+        return currOrders;
     }
 
     public boolean isDeliverySathiFree(){

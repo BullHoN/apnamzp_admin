@@ -14,6 +14,7 @@ import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.models.deliverysathi.DeliverySathiStatus;
 import com.avit.apnamzpadmin.models.network.NetworkResponse;
 import com.avit.apnamzpadmin.models.order.OrderItem;
+import com.avit.apnamzpadmin.models.user.UserInfo;
 import com.avit.apnamzpadmin.network.NetworkAPI;
 import com.avit.apnamzpadmin.network.RetrofitClient;
 import com.avit.apnamzpadmin.utils.ErrorUtils;
@@ -88,6 +89,38 @@ public class DeliverySathisStatusActivity extends AppCompatActivity implements D
             @Override
             public void onFailure(Call<NetworkResponse> call, Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
+            }
+        });
+
+    }
+
+    @Override
+    public void changeCurrOrder(int newCurrOrder, UserInfo userInfo) {
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
+
+        userInfo.setCurrOrders(newCurrOrder);
+
+        Call<NetworkResponse> call = networkAPI.updateDeliverySathi(userInfo);
+        call.enqueue(new Callback<NetworkResponse>() {
+            @Override
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getApplicationContext(),errorResponse.getDesc(),Toasty.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
+                Toasty.success(getApplicationContext(),"Update Sucessfull",Toasty.LENGTH_LONG)
+                        .show();
+
+            }
+
+            @Override
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
+                Toasty.error(getApplicationContext(),t.getMessage(),Toasty.LENGTH_LONG)
+                        .show();
             }
         });
 

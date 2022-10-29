@@ -8,8 +8,10 @@ import com.avit.apnamzpadmin.models.review.ReviewData;
 import com.avit.apnamzpadmin.models.shop.CreateShopPostData;
 import com.avit.apnamzpadmin.models.shop.ShopData;
 import com.avit.apnamzpadmin.models.shop.ShopItemData;
+import com.avit.apnamzpadmin.models.subscription.Subscription;
 import com.avit.apnamzpadmin.models.user.BannerData;
 import com.avit.apnamzpadmin.models.user.UserAppDetails;
+import com.avit.apnamzpadmin.models.user.UserInfo;
 
 import java.util.List;
 
@@ -25,8 +27,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetworkAPI {
-     String SERVER_URL = "http://192.168.1.4:5000/";
-//    String SERVER_URL = "https://apnamzp.in/";
+//     String SERVER_URL = "http://192.168.1.4:5000/";
+    String SERVER_URL = "https://apnamzp.in/";
 
     @GET("/apna_mzp/admin/pendingOrders")
     Call<List<OrderItem>> getPendingOrders();
@@ -94,5 +96,11 @@ public interface NetworkAPI {
 
     @POST("/apna_mzp/admin/service-status")
     Call<NetworkResponse> changeServiceStatus(@Body ServiceStatus serviceStatus);
+
+    @POST("/apna_mzp/admin/update-delivery-sathi")
+    Call<NetworkResponse> updateDeliverySathi(@Body UserInfo userInfo);
+
+    @GET("/partner/subscription/{shopId}")
+    Call<Subscription> getSubscription(@Path("shopId") String shopId);
 
 }

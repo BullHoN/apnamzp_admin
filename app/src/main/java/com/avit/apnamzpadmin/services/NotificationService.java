@@ -54,6 +54,9 @@ public class NotificationService extends FirebaseMessagingService {
         if(type != null && type.equals("review_created")){
             showReviewsNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("desc"));
         }
+        else if(type != null && type.contains("subscription")){
+            showSubscriptionNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("desc"));
+        }
         else {
             handleNewNotification();
         }
@@ -90,6 +93,39 @@ public class NotificationService extends FirebaseMessagingService {
             manager.createNotificationChannel(newsChannel);
 
         }
+    }
+
+    private void showSubscriptionNotification(String title, String desc){
+//        Intent viewReviewsIntent = new Intent(getApplicationContext(), ReviewService.class);
+//        viewReviewsIntent.setAction("com.avit.apnamzp_review_created");
+//
+//        PendingIntent pendingIntent;
+//        if (android.os.Build.VERSION.SDK_INT >= 31) {
+//            pendingIntent = PendingIntent.getActivity
+//                    (this, 0, viewReviewsIntent, PendingIntent.FLAG_IMMUTABLE);
+//        }
+//        else
+//        {
+//            pendingIntent =  PendingIntent.getActivity
+//                    (this,0,viewReviewsIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+//        }
+
+
+        Notification notification = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_OFFERS_ID)
+                .setContentTitle(title)
+                .setSmallIcon(R.drawable.removed_bg_main_icon)
+                .setContentText(desc)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(desc))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setAutoCancel(true)
+                .build();
+
+        if(OFFERS_NOTIFICATION_ID > 1073741824){
+            OFFERS_NOTIFICATION_ID = 0;
+        }
+
+        notificationManager.notify(OFFERS_NOTIFICATION_ID++,notification);
     }
 
     private void showReviewsNotification(String title, String desc){

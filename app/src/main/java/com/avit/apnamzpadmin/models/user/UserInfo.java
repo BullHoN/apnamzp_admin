@@ -7,6 +7,7 @@ public class UserInfo {
     private String phoneNo;
     private String rawAddress;
     private boolean isVissible;
+    private int currOrders;
 
     public UserInfo(String name, String latitude, String longitude, String phoneNo, String rawAddress) {
         this.name = name;
@@ -15,6 +16,14 @@ public class UserInfo {
         this.phoneNo = phoneNo;
         this.rawAddress = rawAddress;
         this.isVissible = false;
+    }
+
+    public void setCurrOrders(int currOrders) {
+        this.currOrders = currOrders;
+    }
+
+    public int getCurrOrders() {
+        return currOrders;
     }
 
     public boolean isVissible() {

@@ -18,6 +18,7 @@ import com.avit.apnamzpadmin.ui.directorder.DirectOrderActivity;
 import com.avit.apnamzpadmin.ui.getorderservice.GetOrdersActivity;
 import com.avit.apnamzpadmin.ui.reviewservice.ReviewService;
 import com.avit.apnamzpadmin.ui.servicestatus.ServiceStatusActivity;
+import com.avit.apnamzpadmin.ui.shopdataservice.ShopDataActivity;
 import com.avit.apnamzpadmin.ui.userappservices.UserAppServiceActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -117,6 +118,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent serviceStatusIntent = new Intent(getApplicationContext(), ServiceStatusActivity.class);
                 startActivity(serviceStatusIntent);
+            }
+        });
+
+        findViewById(R.id.shop_details).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent shopDetailsIntent = new Intent(getApplicationContext(), ShopDataActivity.class);
+                startActivity(shopDetailsIntent);
             }
         });
 

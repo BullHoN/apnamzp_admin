@@ -13,9 +13,9 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_bar"
-            app:queryHint="Enter Shop Name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:queryHint="Enter Shop Name" />
 
         <LinearLayout
             android:padding="12dp"

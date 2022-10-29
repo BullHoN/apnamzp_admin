@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.models.deliverysathi.DeliverySathiOrderDetails;
 import com.avit.apnamzpadmin.models.deliverysathi.DeliverySathiStatus;
+import com.avit.apnamzpadmin.models.user.UserInfo;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
@@ -25,6 +28,7 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
 
     public interface DeliverySathiStatusActions {
         void assignDeliverySathi(String deliverySathiPhoneNo);
+        void changeCurrOrder(int newCurrOrder, UserInfo userInfo);
     }
 
     private List<DeliverySathiStatus> deliverySathiStatusList;
@@ -51,6 +55,8 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
     public void onBindViewHolder(@NonNull DeliverySathiStatusViewHolder holder, int position) {
         DeliverySathiStatus curr = deliverySathiStatusList.get(position);
         Log.i(TAG, "onBindViewHolder: " + curr.getDeliverySathi().getPhoneNo());
+
+        holder.currOrdersView.setText(String.valueOf(curr.getCurrOrders()));
 
         if(!curr.isDeliverySathiFree()){
 
@@ -152,6 +158,15 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
             holder.assignButton.setVisibility(View.GONE);
         }
 
+        holder.changeCurrOrdersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int newCurrOrderVal = Integer.valueOf(holder.currOrdersView.getText().toString());
+                deliverySathiStatusActions.changeCurrOrder(newCurrOrderVal,curr.getDeliverySathi());
+                holder.currOrdersView.setText(String.valueOf(newCurrOrderVal));
+            }
+        });
+
     }
 
     public void updateItems(List<DeliverySathiStatus> newDeliverySathiStatus){
@@ -185,6 +200,8 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
         private LinearLayout ordersContainer;
         private TextView deliverySathiPhoneView, deliverySathiAddressView;
         private MaterialButton assignButton;
+        private TextInputEditText currOrdersView;
+        private ImageButton changeCurrOrdersButton;
 
         public DeliverySathiStatusViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -193,6 +210,9 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
 
             deliverySathiPhoneView = itemView.findViewById(R.id.delivery_sathi_phoneNo);
             deliverySathiAddressView = itemView.findViewById(R.id.delivery_sathi_address);
+
+            currOrdersView = itemView.findViewById(R.id.curr_orders);
+            changeCurrOrdersButton = itemView.findViewById(R.id.change_curr_orders);
 
             assignButton = itemView.findViewById(R.id.assign_delivery_sathi);
         }
