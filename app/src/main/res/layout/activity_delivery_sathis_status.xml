@@ -36,11 +36,11 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:nestedScrollingEnabled="false"
             android:id="@+id/delivery_sathis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/header"
+            android:nestedScrollingEnabled="false"
             tools:itemCount="3"
             tools:listitem="@layout/item_delivery_sathi_location" />
 

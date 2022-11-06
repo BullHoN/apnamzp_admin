@@ -78,6 +78,26 @@
             tools:listitem="@layout/item_order_items"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/preperationTime"
+            android:textColor="@color/primaryColor"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:text="Preperation Time: Not Yet Accepted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/deliverySathiAssigned"
+            android:textColor="@color/primaryColor"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:text="Assigned Sathi: Not Yet Assigned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
@@ -169,7 +189,7 @@
                                 android:layout_gravity="center"
                                 android:textColor="@color/white"
                                 android:id="@+id/customer_phoneNo"
-                                android:text="PhoneNo: 7505725957"
+                                android:text="PhoneNo: Not Available"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
 
@@ -188,7 +208,45 @@
                                 android:fontFamily="@font/roboto_bold"
                                 android:textColor="@color/white"
                                 android:id="@+id/customer_address"
-                                android:text="Address: Vaibhav Bhardwaj"
+                                android:text="Address: Not Available"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/customer_landmark_container"
+                            android:background="@color/primaryColor"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:fontFamily="@font/roboto_bold"
+                                android:textColor="@color/white"
+                                android:id="@+id/customer_landmark"
+                                android:text="Landmark: Not Available"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/customer_houseno_container"
+                            android:background="@color/primaryColor"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:fontFamily="@font/roboto_bold"
+                                android:textColor="@color/white"
+                                android:id="@+id/customer_houseno"
+                                android:text="HouseNo: Not Available"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
 

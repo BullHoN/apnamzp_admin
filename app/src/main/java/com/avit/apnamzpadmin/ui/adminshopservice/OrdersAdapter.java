@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,6 +67,18 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
         OrderingItemsAdapter adapter = new OrderingItemsAdapter(curr.getOrderItems(),context);
         holder.orderingItemsList.setAdapter(adapter);
 
+        if(curr.getExpectedDeliveryTime() != null){
+            holder.preperationTimeView.setText("Preperation Time: " + curr.getExpectedDeliveryTime());
+        }
+
+        if(curr.getAssignedDeliveryBoy() != null){
+            if(curr.isOrderAcceptedByDeliverySathi()){
+                holder.deliverySathiAssignedView.setText("Sathi: " + curr.getAssignedDeliveryBoy() + " ( Accepted ) ");
+            }
+            else {
+                holder.deliverySathiAssignedView.setText("Sathi: " + curr.getAssignedDeliveryBoy() + " ( Not Accepted ) ");
+            }
+        }
 
         holder.orderId.setText("Order Id: #" + curr.get_id());
         holder.shopName.setText("Name: " + curr.getShopInfo().getName());
@@ -83,6 +96,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
 
         holder.customerName.setText("Name: " + curr.getUserInfo().getName());
         holder.customerAddress.setText("Address: " + curr.getUserInfo().getRawAddress());
+        if(curr.getUserInfo().getLandmark() != null){
+            holder.customerLandmark.setText("Landmark: " + curr.getUserInfo().getLandmark());
+        }
+
+        if(curr.getUserInfo().getHouseNo() != null){
+            holder.customerHouseNo.setText("House No: " + curr.getUserInfo().getHouseNo());
+        }
 
         if(!curr.isPaid()){
             holder.orderPaymentStatusView.setBackgroundColor(context.getResources().getColor(R.color.errorColor));
@@ -302,7 +322,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
     public class OrdersAdapterViewHolder extends RecyclerView.ViewHolder {
 
         public RecyclerView orderingItemsList;
-        public TextView orderId,customerName,customerPhoneNo,customerAddress;
+        public TextView orderId,customerName,customerPhoneNo,customerAddress,customerLandmark,customerHouseNo;
         public TextView shopName,shopPhoneNo,shopAddress;
         public LinearLayout customerDetailsToggleButton, expandableCustomerDetailsView;
         public LinearLayout shopDetailsToggleButton, expandableShopDetailsView;
@@ -313,6 +333,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
         public TextView totalAmountToTakeView, totalAmountToGiveView;
         public LinearLayout customerAddressContainer, shopAddressContainer;
         public TextView orderPaymentStatusView;
+        public TextView preperationTimeView, deliverySathiAssignedView;
 
         public OrdersAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -323,6 +344,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
             customerAddress = itemView.findViewById(R.id.customer_address);
             customerDetailsToggleButton = itemView.findViewById(R.id.customer_toggle_button);
             expandableCustomerDetailsView = itemView.findViewById(R.id.expandable_customer_details);
+            customerLandmark = itemView.findViewById(R.id.customer_landmark);
+            customerHouseNo = itemView.findViewById(R.id.customer_houseno);
 
             itemsOnTheWayToggleButton = itemView.findViewById(R.id.itemsOn_the_way_toggle_button);
             expandableItemsOnTheWayDetailsView = itemView.findViewById(R.id.items_on_the_way_expandable_layout);
@@ -341,6 +364,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
             shopAddressContainer = itemView.findViewById(R.id.shop_address_container);
 
             orderPaymentStatusView = itemView.findViewById(R.id.order_payment_status);
+            preperationTimeView = itemView.findViewById(R.id.preperationTime);
+            deliverySathiAssignedView = itemView.findViewById(R.id.deliverySathiAssigned);
 
         }
     }

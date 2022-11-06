@@ -82,7 +82,34 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cash In Hand"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="number"
+                    android:id="@+id/cash_in_hand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/change_cash_in_hand"
+                android:background="@drawable/ic_baseline_play_arrow_24"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"

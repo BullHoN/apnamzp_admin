@@ -28,7 +28,7 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
 
     public interface DeliverySathiStatusActions {
         void assignDeliverySathi(String deliverySathiPhoneNo);
-        void changeCurrOrder(int newCurrOrder, UserInfo userInfo);
+        void updateDeliverySathi(UserInfo userInfo);
     }
 
     private List<DeliverySathiStatus> deliverySathiStatusList;
@@ -55,8 +55,6 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
     public void onBindViewHolder(@NonNull DeliverySathiStatusViewHolder holder, int position) {
         DeliverySathiStatus curr = deliverySathiStatusList.get(position);
         Log.i(TAG, "onBindViewHolder: " + curr.getDeliverySathi().getPhoneNo());
-
-        holder.currOrdersView.setText(String.valueOf(curr.getCurrOrders()));
 
         if(!curr.isDeliverySathiFree()){
 
@@ -158,12 +156,24 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
             holder.assignButton.setVisibility(View.GONE);
         }
 
+        holder.currOrdersView.setText(String.valueOf(curr.getDeliverySathi().getCurrOrders()));
         holder.changeCurrOrdersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int newCurrOrderVal = Integer.valueOf(holder.currOrdersView.getText().toString());
-                deliverySathiStatusActions.changeCurrOrder(newCurrOrderVal,curr.getDeliverySathi());
-                holder.currOrdersView.setText(String.valueOf(newCurrOrderVal));
+                curr.getDeliverySathi().setCurrOrders(newCurrOrderVal);
+                deliverySathiStatusActions.updateDeliverySathi(curr.getDeliverySathi());
+            }
+        });
+
+        holder.cashInHandView.setText(String.valueOf(curr.getDeliverySathi().getCashInHand()));
+
+        holder.changeCurrOrdersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int newCashInHand = Integer.valueOf(holder.cashInHandView.getText().toString());
+                curr.getDeliverySathi().setCashInHand(newCashInHand);
+                deliverySathiStatusActions.updateDeliverySathi(curr.getDeliverySathi());
             }
         });
 
@@ -200,8 +210,8 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
         private LinearLayout ordersContainer;
         private TextView deliverySathiPhoneView, deliverySathiAddressView;
         private MaterialButton assignButton;
-        private TextInputEditText currOrdersView;
-        private ImageButton changeCurrOrdersButton;
+        private TextInputEditText currOrdersView, cashInHandView;
+        private ImageButton changeCurrOrdersButton, changeCashInhandButton;
 
         public DeliverySathiStatusViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -215,6 +225,9 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
             changeCurrOrdersButton = itemView.findViewById(R.id.change_curr_orders);
 
             assignButton = itemView.findViewById(R.id.assign_delivery_sathi);
+
+            cashInHandView = itemView.findViewById(R.id.cash_in_hand);
+            changeCurrOrdersButton = itemView.findViewById(R.id.change_cash_in_hand);
         }
     }
 }

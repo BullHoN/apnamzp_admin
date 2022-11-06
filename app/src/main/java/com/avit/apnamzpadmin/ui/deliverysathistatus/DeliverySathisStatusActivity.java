@@ -95,11 +95,9 @@ public class DeliverySathisStatusActivity extends AppCompatActivity implements D
     }
 
     @Override
-    public void changeCurrOrder(int newCurrOrder, UserInfo userInfo) {
+    public void updateDeliverySathi(UserInfo userInfo) {
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
-
-        userInfo.setCurrOrders(newCurrOrder);
 
         Call<NetworkResponse> call = networkAPI.updateDeliverySathi(userInfo);
         call.enqueue(new Callback<NetworkResponse>() {

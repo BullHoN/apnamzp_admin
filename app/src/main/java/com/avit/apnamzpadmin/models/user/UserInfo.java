@@ -8,6 +8,23 @@ public class UserInfo {
     private String rawAddress;
     private boolean isVissible;
     private int currOrders;
+    private String landmark;
+    private String houseNo;
+    private int cashInHand;
+
+    public UserInfo(String name, String latitude, String longitude, String phoneNo, String rawAddress, boolean isVissible, int currOrders, String landmark, String houseNo, int cashInHand) {
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.phoneNo = phoneNo;
+        this.rawAddress = rawAddress;
+        this.isVissible = isVissible;
+        this.currOrders = currOrders;
+        this.landmark = landmark;
+        this.houseNo = houseNo;
+        this.cashInHand = cashInHand;
+    }
+
 
     public UserInfo(String name, String latitude, String longitude, String phoneNo, String rawAddress) {
         this.name = name;
@@ -16,6 +33,22 @@ public class UserInfo {
         this.phoneNo = phoneNo;
         this.rawAddress = rawAddress;
         this.isVissible = false;
+    }
+
+    public int getCashInHand() {
+        return cashInHand;
+    }
+
+    public void setCashInHand(int cashInHand) {
+        this.cashInHand = cashInHand;
+    }
+
+    public String getLandmark() {
+        return landmark;
+    }
+
+    public String getHouseNo() {
+        return houseNo;
     }
 
     public void setCurrOrders(int currOrders) {
