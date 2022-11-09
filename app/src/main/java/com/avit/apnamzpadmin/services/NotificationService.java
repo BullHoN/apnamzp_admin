@@ -57,6 +57,9 @@ public class NotificationService extends FirebaseMessagingService {
         else if(type != null && type.contains("subscription")){
             showSubscriptionNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("desc"));
         }
+        else if(type != null && type.contains("order_alerts")){
+            showSubscriptionNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("desc"));
+        }
         else {
             handleNewNotification();
         }

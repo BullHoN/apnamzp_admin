@@ -168,7 +168,7 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
 
         holder.cashInHandView.setText(String.valueOf(curr.getDeliverySathi().getCashInHand()));
 
-        holder.changeCurrOrdersButton.setOnClickListener(new View.OnClickListener() {
+        holder.changeCashInhandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int newCashInHand = Integer.valueOf(holder.cashInHandView.getText().toString());
@@ -227,7 +227,7 @@ public class DeliverySathiStatusAdapter extends RecyclerView.Adapter<DeliverySat
             assignButton = itemView.findViewById(R.id.assign_delivery_sathi);
 
             cashInHandView = itemView.findViewById(R.id.cash_in_hand);
-            changeCurrOrdersButton = itemView.findViewById(R.id.change_cash_in_hand);
+            changeCashInhandButton = itemView.findViewById(R.id.change_cash_in_hand);
         }
     }
 }
