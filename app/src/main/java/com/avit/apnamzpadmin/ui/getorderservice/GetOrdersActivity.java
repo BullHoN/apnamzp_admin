@@ -34,7 +34,7 @@ import retrofit2.Retrofit;
 
 public class GetOrdersActivity extends AppCompatActivity implements OrdersAdapter.OrdersActions{
 
-    private String TAG = "GetOrdersActivity";
+    private String TAG = "GetOrdersActivityTag";
     private GetOrdersViewModel viewModel;
     private OrdersAdapter ordersAdapter;
     private Gson gson;
@@ -47,14 +47,20 @@ public class GetOrdersActivity extends AppCompatActivity implements OrdersAdapte
         gson = new Gson();
         viewModel = new ViewModelProvider(this).get(GetOrdersViewModel.class);
 
-        viewModel.getOrders(getApplicationContext(),null);
+        if(getIntent() != null && getIntent().getStringExtra("orderId") != null){
+            String orderId = getIntent().getStringExtra("orderId");
+            viewModel.getOrders(getApplicationContext(),null,orderId);
+        }
+        else {
+            viewModel.getOrders(getApplicationContext(),null,null);
+        }
 
         SearchView searchView =  findViewById(R.id.search_orders);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.i(TAG, "onQueryTextSubmit: " + query);
-                viewModel.getOrders(getApplicationContext(),query);
+                viewModel.getOrders(getApplicationContext(),query,null);
                 return false;
             }
 

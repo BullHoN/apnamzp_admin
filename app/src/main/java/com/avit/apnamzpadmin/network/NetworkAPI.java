@@ -27,7 +27,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetworkAPI {
-//     String SERVER_URL = "http://192.168.1.3:5000/";
+//     String SERVER_URL = "http://192.168.1.5:5000/";
     String SERVER_URL = "https://apnamzp.in/";
 
     @GET("/apna_mzp/admin/pendingOrders")
@@ -46,7 +46,7 @@ public interface NetworkAPI {
     Call<NetworkResponse> cancelOrder(@Query("orderId") String orderId, @Query("cancelReason") String cancelReason);
 
     @GET("/apna_mzp/admin/orders")
-    Call<List<OrderItem>> getOrdersByPhoneNo(@Query("phoneNo") String phoneNo);
+    Call<List<OrderItem>> getOrdersByPhoneNo(@Query("phoneNo") String phoneNo,@Query("orderId") String orderId);
 
     @GET("/apna_mzp/admin/userAppData")
     Call<UserAppDetails> getUserAppDetails();

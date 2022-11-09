@@ -41,9 +41,9 @@ public class NotificationUtils {
         return isInBackground;
     }
 
-    public static void playSound(Context context){
+    public static void playSound(Context context, int audioId){
         if(mediaPlayer == null){
-            mediaPlayer = MediaPlayer.create(context, R.raw.new_order);
+            mediaPlayer = MediaPlayer.create(context, audioId);
             mediaPlayer.setLooping(true);
         }
 

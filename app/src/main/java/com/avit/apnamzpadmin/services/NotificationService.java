@@ -16,6 +16,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.ui.adminshopservice.AdminShopServiceActivity;
+import com.avit.apnamzpadmin.ui.getorderservice.GetOrdersActivity;
 import com.avit.apnamzpadmin.ui.reviewservice.ReviewService;
 import com.avit.apnamzpadmin.utils.NotificationUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -58,7 +59,8 @@ public class NotificationService extends FirebaseMessagingService {
             showSubscriptionNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("desc"));
         }
         else if(type != null && type.contains("order_alerts")){
-            showSubscriptionNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("desc"));
+            showOrderAlertNotification(remoteMessage.getData().get("title"),
+                    remoteMessage.getData().get("desc"),remoteMessage.getData().get("orderId"),type);
         }
         else {
             handleNewNotification();
@@ -66,7 +68,7 @@ public class NotificationService extends FirebaseMessagingService {
     }
 
     private void handleNewNotification(){
-        NotificationUtils.playSound(getApplicationContext());
+        NotificationUtils.playSound(getApplicationContext(),R.raw.new_order);
 
         Intent intent = new Intent(getApplicationContext(), AdminShopServiceActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -155,6 +157,49 @@ public class NotificationService extends FirebaseMessagingService {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setAutoCancel(true)
+                .build();
+
+        if(OFFERS_NOTIFICATION_ID > 1073741824){
+            OFFERS_NOTIFICATION_ID = 0;
+        }
+
+        notificationManager.notify(OFFERS_NOTIFICATION_ID++,notification);
+    }
+
+    private void showOrderAlertNotification(String title, String desc, String orderId, String type){
+
+        if(type.equals("order_alerts_not_responded") || type.equals("order_alerts_delivery_delay")){
+            NotificationUtils.playSound(getApplicationContext(),R.raw.alert_not_responded);
+        }
+
+        Intent ordersActivity = new Intent(getApplicationContext(), GetOrdersActivity.class);
+        ordersActivity.setAction("com.avit.apnamzp_order_alerts_not_responded");
+
+        ordersActivity.putExtra("orderId",orderId);
+
+        PendingIntent pendingIntent;
+        if (android.os.Build.VERSION.SDK_INT >= 31) {
+            pendingIntent = PendingIntent.getActivity
+                    (this, 0, ordersActivity, PendingIntent.FLAG_IMMUTABLE);
+        }
+        else
+        {
+            pendingIntent =  PendingIntent.getActivity
+                    (this,0,ordersActivity,PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+
+
+        Notification notification = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_OFFERS_ID)
+                .setContentTitle(title)
+                .setSmallIcon(R.drawable.removed_bg_main_icon)
+                .setContentText(desc)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText(desc)
+                )
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setAutoCancel(false)
                 .build();
 
         if(OFFERS_NOTIFICATION_ID > 1073741824){

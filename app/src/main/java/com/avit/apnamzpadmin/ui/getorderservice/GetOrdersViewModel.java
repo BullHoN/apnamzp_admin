@@ -33,11 +33,11 @@ public class GetOrdersViewModel extends ViewModel {
         return mutableLiveData;
     }
 
-    public void getOrders(Context context, String phoneNo){
+    public void getOrders(Context context, String phoneNo, String orderId){
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
 
-        Call<List<OrderItem>> call = networkAPI.getOrdersByPhoneNo(phoneNo);
+        Call<List<OrderItem>> call = networkAPI.getOrdersByPhoneNo(phoneNo,orderId);
         call.enqueue(new Callback<List<OrderItem>>() {
             @Override
             public void onResponse(Call<List<OrderItem>> call, Response<List<OrderItem>> response) {
