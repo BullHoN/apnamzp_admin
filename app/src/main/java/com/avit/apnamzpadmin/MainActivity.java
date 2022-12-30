@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.avit.apnamzpadmin.ui.allshops.AllShopsActivity;
 import com.avit.apnamzpadmin.ui.editshop.EditShopService;
 import com.avit.apnamzpadmin.ui.adminshopservice.AdminShopServiceActivity;
 import com.avit.apnamzpadmin.ui.bannerimageservice.BannerImageActivity;
@@ -126,6 +127,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent shopDetailsIntent = new Intent(getApplicationContext(), ShopDataActivity.class);
                 startActivity(shopDetailsIntent);
+            }
+        });
+
+        findViewById(R.id.all_shops).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent allShopsIntent = new Intent(getApplicationContext(), AllShopsActivity.class);
+                startActivity(allShopsIntent);
             }
         });
 

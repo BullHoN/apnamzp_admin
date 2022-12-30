@@ -169,7 +169,7 @@ public class NotificationService extends FirebaseMessagingService {
     private void showOrderAlertNotification(String title, String desc, String orderId, String type){
 
         if(type.equals("order_alerts_not_responded") || type.equals("order_alerts_delivery_delay")){
-            NotificationUtils.playSound(getApplicationContext(),R.raw.alert_not_responded);
+            NotificationUtils.playSound(getApplicationContext(),R.raw.alert_resturant_delay);
         }
 
         Intent ordersActivity = new Intent(getApplicationContext(), GetOrdersActivity.class);

@@ -18,6 +18,7 @@ import com.avit.apnamzpadmin.models.subscription.SubscriptionPricings;
 import com.avit.apnamzpadmin.ui.editshop.EditShopViewModel;
 import com.avit.apnamzpadmin.utils.PrettyStrings;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -46,6 +47,14 @@ public class ShopDataActivity extends AppCompatActivity {
         endDate = findViewById(R.id.end_date);
         totalEarnings = findViewById(R.id.total_earnings);
         expectedPay = findViewById(R.id.expected_pay);
+
+        Gson gson = new Gson();
+
+        if(getIntent() != null && getIntent().getStringExtra("shopData") != null){
+            shopData = gson.fromJson(getIntent().getStringExtra("shopData"),ShopData.class);
+            shopNameView.setText(shopData.getName());
+            viewModel.getActiveSubscription(getApplicationContext(),shopData.get_id());
+        }
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -79,7 +88,7 @@ public class ShopDataActivity extends AppCompatActivity {
     private void setUpCurrentValidPlan(Subscription subscription){
         currentSubscription = subscription;
 
-        if(subscription.getId() == null){
+        if(subscription == null || subscription.getId() == null){
             Toasty.error(getApplicationContext(),"No Subscription Found",Toasty.LENGTH_LONG)
                     .show();
             return;

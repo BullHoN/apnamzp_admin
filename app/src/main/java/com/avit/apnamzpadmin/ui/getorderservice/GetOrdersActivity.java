@@ -20,6 +20,7 @@ import com.avit.apnamzpadmin.network.RetrofitClient;
 import com.avit.apnamzpadmin.ui.adminshopservice.OrdersAdapter;
 import com.avit.apnamzpadmin.ui.deliverysathistatus.DeliverySathisStatusActivity;
 import com.avit.apnamzpadmin.utils.ErrorUtils;
+import com.avit.apnamzpadmin.utils.NotificationUtils;
 import com.google.gson.Gson;
 
 import java.lang.reflect.GenericSignatureFormatError;
@@ -46,6 +47,8 @@ public class GetOrdersActivity extends AppCompatActivity implements OrdersAdapte
 
         gson = new Gson();
         viewModel = new ViewModelProvider(this).get(GetOrdersViewModel.class);
+
+        NotificationUtils.stopSound();
 
         if(getIntent() != null && getIntent().getStringExtra("orderId") != null){
             String orderId = getIntent().getStringExtra("orderId");
