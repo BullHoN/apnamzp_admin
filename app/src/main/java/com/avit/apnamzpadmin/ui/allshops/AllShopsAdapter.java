@@ -17,6 +17,7 @@ import com.avit.apnamzpadmin.ui.shopdataservice.ShopDataActivity;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class AllShopsAdapter extends RecyclerView.Adapter<AllShopsAdapter.AllShopsViewHolder>{
@@ -47,12 +48,18 @@ public class AllShopsAdapter extends RecyclerView.Adapter<AllShopsAdapter.AllSho
             return;
         }
 
-        holder.subscriptionStatus.setText("Subscription Status: Active");
+        if(hasPlanExpired(curr.getCurrentSubsciption().getEndDate())){
+            holder.subscriptionStatus.setText("Subscription Status: Not Active");
+            holder.subscriptionStatus.setTextColor(context.getColor(R.color.errorColor));
+        }
+        else {
+            holder.subscriptionStatus.setText("Subscription Status: Active");
+        }
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM");
+        SimpleDateFormat displayFormat = new SimpleDateFormat("dd-MMM-yyyy");
 
-        holder.startDate.setText("Start Date: " + simpleDateFormat.format(curr.getCurrentSubsciption().getStartDate()));
-        holder.endDate.setText("End Date: " + simpleDateFormat.format(curr.getCurrentSubsciption().getEndDate()));
+        holder.startDate.setText("Start Date:\n" + displayFormat.format(curr.getCurrentSubsciption().getStartDate()));
+        holder.endDate.setText("End Date:\n" + displayFormat.format(curr.getCurrentSubsciption().getEndDate()));
 
         holder.shopContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +72,16 @@ public class AllShopsAdapter extends RecyclerView.Adapter<AllShopsAdapter.AllSho
             }
         });
 
+    }
+
+    private boolean hasPlanExpired(Date endDate){
+        Date currDate = new Date();
+
+        if(endDate.before(currDate)){
+            return true;
+        }
+
+        return false;
     }
 
     @Override
