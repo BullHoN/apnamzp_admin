@@ -25,7 +25,6 @@ public class AllShopsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_all_shops);
 
         viewModel = new ViewModelProvider(this).get(AllShopsViewModel.class);
-        viewModel.getShops(this);
 
         RecyclerView allShopsRecyclerView = findViewById(R.id.all_shops_recycler_view);
         allShopsRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
@@ -40,5 +39,12 @@ public class AllShopsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.changeList(new ArrayList<>());
+        viewModel.getShops(this);
     }
 }

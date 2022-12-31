@@ -40,6 +40,14 @@ public class Subscription {
         this.newPlanPrice = newPlanPrice;
     }
 
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     public boolean isCreateNewPlan() {
         return createNewPlan;
     }
