@@ -48,7 +48,7 @@ public class ShopDataActivity extends AppCompatActivity {
     private ShopDataViewModel viewModel;
     private TextInputEditText shopNameView;
     private Subscription currentSubscription;
-    private TextView fromDate, endDate, totalEarnings, expectedPay;
+    private TextView fromDate, endDate, totalEarnings, expectedPay, directOrderEarningView;
     private SubscriptionPricings currPricing;
     private LinearLayout fromDateContainer, endDateContainer;
     private MaterialButton saveChangesButton;
@@ -70,6 +70,7 @@ public class ShopDataActivity extends AppCompatActivity {
         fromDateContainer = findViewById(R.id.from_date_container);
         endDateContainer = findViewById(R.id.end_date_container);
         saveChangesButton = findViewById(R.id.save_changes_button);
+        directOrderEarningView = findViewById(R.id.direct_order_earnings);
 
         Gson gson = new Gson();
 
@@ -176,7 +177,8 @@ public class ShopDataActivity extends AppCompatActivity {
             }
         });
 
-        totalEarnings.setText("Total Sales: " + PrettyStrings.getPriceInRupees(currentSubscription.getTotalEarning()));
+        totalEarnings.setText("Total App Sales: " + PrettyStrings.getPriceInRupees(currentSubscription.getTotalAppSales()));
+        directOrderEarningView.setText("Total Direct Order Sales: " + PrettyStrings.getPriceInRupees(currentSubscription.getDirectOrderEarning()));
 
         for(SubscriptionPricings pricings : currentSubscription.getSubscriptionPricings()){
             if(currentSubscription.getTotalEarning() >= pricings.getFrom() && currentSubscription.getTotalEarning() <= pricings.getTo()){

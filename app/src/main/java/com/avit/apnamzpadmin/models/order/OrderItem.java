@@ -30,9 +30,38 @@ public class OrderItem {
     private boolean adminShopService;
     private String shopCategory;
     private String assignedDeliveryBoy;
+    private boolean isNewCustomer;
 
     public OrderItem(){
 
+    }
+
+    public OrderItem(String _id, List<ShopItemData> orderItems, UserInfo shopInfo, UserInfo userInfo, Integer orderStatus, List<String> itemsOnTheWay, boolean itemsOnTheWayVisible, Integer totalAmountToTake, Integer totalAmountToGive, boolean isPaid, boolean itemsOnTheWayCancelled, int itemsOnTheWayActualCost, boolean orderAcceptedByDeliverySathi, BillingDetails billingDetails, String offerCode, String shopID, String userId, UserInfo deliveryAddress, String expectedDeliveryTime, Boolean paymentReceivedToShop, String actualDistance, boolean adminShopService, String shopCategory, String assignedDeliveryBoy, boolean isNewCustomer) {
+        this._id = _id;
+        this.orderItems = orderItems;
+        this.shopInfo = shopInfo;
+        this.userInfo = userInfo;
+        this.orderStatus = orderStatus;
+        this.itemsOnTheWay = itemsOnTheWay;
+        this.itemsOnTheWayVisible = itemsOnTheWayVisible;
+        this.totalAmountToTake = totalAmountToTake;
+        this.totalAmountToGive = totalAmountToGive;
+        this.isPaid = isPaid;
+        this.itemsOnTheWayCancelled = itemsOnTheWayCancelled;
+        this.itemsOnTheWayActualCost = itemsOnTheWayActualCost;
+        this.orderAcceptedByDeliverySathi = orderAcceptedByDeliverySathi;
+        this.billingDetails = billingDetails;
+        this.offerCode = offerCode;
+        this.shopID = shopID;
+        this.userId = userId;
+        this.deliveryAddress = deliveryAddress;
+        this.expectedDeliveryTime = expectedDeliveryTime;
+        this.paymentReceivedToShop = paymentReceivedToShop;
+        this.actualDistance = actualDistance;
+        this.adminShopService = adminShopService;
+        this.shopCategory = shopCategory;
+        this.assignedDeliveryBoy = assignedDeliveryBoy;
+        this.isNewCustomer = isNewCustomer;
     }
 
     public OrderItem(String _id, List<ShopItemData> orderItems, UserInfo shopInfo, UserInfo userInfo, Integer orderStatus, List<String> itemsOnTheWay, boolean itemsOnTheWayVisible, Integer totalAmountToTake, Integer totalAmountToGive, boolean isPaid, boolean itemsOnTheWayCancelled, int itemsOnTheWayActualCost, boolean orderAcceptedByDeliverySathi, BillingDetails billingDetails, String offerCode, String shopID, String userId, UserInfo deliveryAddress, String expectedDeliveryTime, Boolean paymentReceivedToShop, String actualDistance, boolean adminShopService, String shopCategory, String assignedDeliveryBoy) {
@@ -201,6 +230,10 @@ public class OrderItem {
         this.shopInfo = shopInfo;
         this.userInfo = userInfo;
         this.orderStatus = orderStatus;
+    }
+
+    public boolean isNewCustomer() {
+        return isNewCustomer;
     }
 
     public String getAssignedDeliveryBoy() {

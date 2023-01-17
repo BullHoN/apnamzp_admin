@@ -61,6 +61,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:paddingVertical="5dp"
+                android:fontFamily="@font/roboto_bold"
+                android:id="@+id/delivery_type"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/white"
+                android:background="@color/failure"
+                android:text="Pickup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_marginLeft="5dp"
+                android:paddingVertical="5dp"
+                android:fontFamily="@font/roboto_bold"
+                android:id="@+id/customer_type"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/white"
+                android:background="@color/failure"
+                android:text="NEW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
 

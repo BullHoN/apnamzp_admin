@@ -14,6 +14,7 @@ public class Subscription {
     private Date endDate;
     private boolean isFree;
     private int totalEarning;
+    private int directOrderEarning;
     private List<SubscriptionPricings> subscriptionPricings;
     private String paymentId;
     private int amount;
@@ -24,6 +25,21 @@ public class Subscription {
         this.id = id;
         this.paymentId  = paymentId;
         this.amount = amount;
+        this.createNewPlan = createNewPlan;
+    }
+
+    public Subscription(String id, boolean isPaid, Date startDate, Date endDate, boolean isFree, int totalEarning, int directOrderEarning, List<SubscriptionPricings> subscriptionPricings, String paymentId, int amount, int newPlanPrice, boolean createNewPlan) {
+        this.id = id;
+        this.isPaid = isPaid;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isFree = isFree;
+        this.totalEarning = totalEarning;
+        this.directOrderEarning = directOrderEarning;
+        this.subscriptionPricings = subscriptionPricings;
+        this.paymentId = paymentId;
+        this.amount = amount;
+        this.newPlanPrice = newPlanPrice;
         this.createNewPlan = createNewPlan;
     }
 
@@ -38,6 +54,14 @@ public class Subscription {
         this.paymentId = paymentId;
         this.amount = amount;
         this.newPlanPrice = newPlanPrice;
+    }
+
+    public int getTotalAppSales(){
+        return totalEarning-directOrderEarning;
+    }
+
+    public int getDirectOrderEarning() {
+        return directOrderEarning;
     }
 
     public void setStartDate(Date startDate) {

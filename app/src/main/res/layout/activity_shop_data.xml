@@ -129,7 +129,14 @@
                     <TextView
                         android:id="@+id/total_earnings"
                         android:textSize="18sp"
-                        android:text="Total Sales: 0"
+                        android:text="App Order Sales: 0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/direct_order_earnings"
+                        android:textSize="18sp"
+                        android:text="Direct order Earnings: 0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 

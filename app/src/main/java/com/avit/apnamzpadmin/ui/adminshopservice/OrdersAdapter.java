@@ -67,6 +67,22 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
         OrderingItemsAdapter adapter = new OrderingItemsAdapter(curr.getOrderItems(),context);
         holder.orderingItemsList.setAdapter(adapter);
 
+        if(curr.getBillingDetails().getDeliveryService()){
+            holder.deliveryTypeView.setText("delivery");
+            holder.deliveryTypeView.setBackgroundColor(context.getColor(R.color.successColor));
+        }
+        else {
+            holder.deliveryTypeView.setText("pickup");
+            holder.deliveryTypeView.setBackgroundColor(context.getColor(R.color.failure));
+        }
+
+        if(curr.isNewCustomer()){
+            holder.newCustomerView.setVisibility(View.VISIBLE);
+        }
+        else {
+            holder.newCustomerView.setVisibility(View.GONE);
+        }
+
         if(curr.getExpectedDeliveryTime() != null){
             holder.preperationTimeView.setText("Preperation Time: " + curr.getExpectedDeliveryTime());
         }
@@ -334,6 +350,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
         public LinearLayout customerAddressContainer, shopAddressContainer;
         public TextView orderPaymentStatusView;
         public TextView preperationTimeView, deliverySathiAssignedView;
+        public TextView deliveryTypeView,newCustomerView;
 
         public OrdersAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -366,6 +383,9 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
             orderPaymentStatusView = itemView.findViewById(R.id.order_payment_status);
             preperationTimeView = itemView.findViewById(R.id.preperationTime);
             deliverySathiAssignedView = itemView.findViewById(R.id.deliverySathiAssigned);
+
+            deliveryTypeView = itemView.findViewById(R.id.delivery_type);
+            newCustomerView = itemView.findViewById(R.id.customer_type);
 
         }
     }
