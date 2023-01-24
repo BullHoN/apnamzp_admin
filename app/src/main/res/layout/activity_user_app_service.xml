@@ -114,6 +114,40 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionSend"
+                    android:hint="Delivery Base Price Below Three"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/delivery_price_below_three"
+                        android:inputType="number"
+                        android:imeOptions="actionSend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionSend"
+                    android:hint="Delivery Base After Three"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/delivery_base_price_after_three"
+                        android:inputType="number"
+                        android:imeOptions="actionSend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/save"
                     android:layout_marginTop="12dp"

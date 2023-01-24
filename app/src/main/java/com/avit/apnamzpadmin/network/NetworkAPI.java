@@ -27,7 +27,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetworkAPI {
-     String SERVER_URL = "http://192.168.1.3:5000/";
+     String SERVER_URL = "http://192.168.1.4:5000/";
 //    String SERVER_URL = "https://apnamzp.in/";
 
     @GET("/apna_mzp/admin/pendingOrders")
@@ -108,5 +108,8 @@ public interface NetworkAPI {
 
     @POST("/apna_mzp/admin/update/subscription")
     Call<NetworkResponse> updateSubscription(@Body Subscription subscription);
+
+    @POST("/apna_mzp/admin/order/updateStatus")
+    Call<NetworkResponse> updateOrderStatus(@Body OrderItem orderItem);
 
 }

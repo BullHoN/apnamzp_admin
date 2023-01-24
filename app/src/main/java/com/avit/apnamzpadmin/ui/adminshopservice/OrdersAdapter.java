@@ -37,6 +37,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
         void assignDeliverySathi(OrderItem orderItem);
         void addDeliverySathiIncome(String orderId, String totalCost);
         void cancelOrder(String orderId, String cancelReason);
+        void updateOrderStatus(String orderId, int orderStatus);
     }
 
     private List<OrderItem> orderItems;
@@ -95,6 +96,29 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
                 holder.deliverySathiAssignedView.setText("Sathi: " + curr.getAssignedDeliveryBoy() + " ( Not Accepted ) ");
             }
         }
+
+        holder.orderStatusView.setText(String.valueOf(curr.getOrderStatus()));
+        holder.changeOrderStatusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(holder.orderStatusView.getText().toString().length() == 0){
+                    Toasty.error(context,"Phele tu yeh kar le",Toasty.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
+                int orderStatus = Integer.parseInt(holder.orderStatusView.getText().toString());
+
+                if(orderStatus < 0 || orderStatus > 7){
+                    Toasty.error(context,"Phele tu yeh kar le",Toasty.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
+                ordersActions.updateOrderStatus(curr.get_id(),orderStatus);
+
+            }
+        });
 
         holder.orderId.setText("Order Id: #" + curr.get_id());
         holder.shopName.setText("Name: " + curr.getShopInfo().getName());
@@ -351,6 +375,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
         public TextView orderPaymentStatusView;
         public TextView preperationTimeView, deliverySathiAssignedView;
         public TextView deliveryTypeView,newCustomerView;
+        public TextInputEditText orderStatusView;
+        public ImageButton changeOrderStatusButton;
 
         public OrdersAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -386,6 +412,9 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersAdap
 
             deliveryTypeView = itemView.findViewById(R.id.delivery_type);
             newCustomerView = itemView.findViewById(R.id.customer_type);
+
+            orderStatusView = itemView.findViewById(R.id.order_status);
+            changeOrderStatusButton = itemView.findViewById(R.id.change_order_status);
 
         }
     }

@@ -36,6 +36,11 @@ public class OrderItem {
 
     }
 
+    public OrderItem(String _id, int orderStatus){
+        this._id = _id;
+        this.orderStatus = orderStatus;
+    }
+
     public OrderItem(String _id, List<ShopItemData> orderItems, UserInfo shopInfo, UserInfo userInfo, Integer orderStatus, List<String> itemsOnTheWay, boolean itemsOnTheWayVisible, Integer totalAmountToTake, Integer totalAmountToGive, boolean isPaid, boolean itemsOnTheWayCancelled, int itemsOnTheWayActualCost, boolean orderAcceptedByDeliverySathi, BillingDetails billingDetails, String offerCode, String shopID, String userId, UserInfo deliveryAddress, String expectedDeliveryTime, Boolean paymentReceivedToShop, String actualDistance, boolean adminShopService, String shopCategory, String assignedDeliveryBoy, boolean isNewCustomer) {
         this._id = _id;
         this.orderItems = orderItems;

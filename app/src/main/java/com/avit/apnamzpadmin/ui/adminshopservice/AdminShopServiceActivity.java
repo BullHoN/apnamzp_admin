@@ -129,6 +129,39 @@ public class AdminShopServiceActivity extends AppCompatActivity implements Order
     }
 
     @Override
+    public void updateOrderStatus(String orderId, int orderStatus) {
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
+
+        Call<NetworkResponse> call = networkAPI.updateOrderStatus(new OrderItem(orderId,orderStatus));
+        call.enqueue(new Callback<NetworkResponse>() {
+            @Override
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getApplicationContext(),errorResponse.getDesc(),Toasty.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
+                Toasty.success(getApplicationContext(),"Changed Successfully",Toasty.LENGTH_LONG)
+                        .show();
+
+                ordersAdapter.updateItems(new ArrayList<>());
+                viewModel.getPendingOrders(getApplicationContext());
+
+            }
+
+            @Override
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
+                Toasty.error(getApplicationContext(),t.getMessage(),Toasty.LENGTH_LONG)
+                        .show();
+            }
+        });
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         viewModel.getPendingOrders(getApplicationContext());

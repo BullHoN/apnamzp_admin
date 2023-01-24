@@ -8,13 +8,24 @@ public class UserAppDetails {
     private int slurgeCharges;
     private String slurgeReason;
     private int itemsOnTheWayCost;
+    private DistanceBasePricings distanceBasePricings;
 
-    public UserAppDetails(List<BannerData> bannerImages, boolean userServiceOpen, int slurgeCharges, String slurgeReason, int itemsOnTheWayCost) {
+    public UserAppDetails(List<BannerData> bannerImages, boolean userServiceOpen,
+                          int slurgeCharges, String slurgeReason, int itemsOnTheWayCost, DistanceBasePricings distanceBasePricings) {
         this.bannerImages = bannerImages;
         this.userServiceOpen = userServiceOpen;
         this.slurgeCharges = slurgeCharges;
         this.slurgeReason = slurgeReason;
         this.itemsOnTheWayCost = itemsOnTheWayCost;
+        this.distanceBasePricings = distanceBasePricings;
+    }
+
+    public DistanceBasePricings getDistanceBasePricings() {
+        return distanceBasePricings;
+    }
+
+    public void setDistanceBasePricings(DistanceBasePricings distanceBasePricings) {
+        this.distanceBasePricings = distanceBasePricings;
     }
 
     public void setBannerImages(List<BannerData> bannerImages) {

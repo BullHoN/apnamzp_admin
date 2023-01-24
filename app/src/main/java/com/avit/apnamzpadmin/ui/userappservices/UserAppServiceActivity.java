@@ -15,10 +15,12 @@ import android.widget.TextView;
 
 import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.models.network.NetworkResponse;
+import com.avit.apnamzpadmin.models.user.DistanceBasePricings;
 import com.avit.apnamzpadmin.models.user.UserAppDetails;
 import com.avit.apnamzpadmin.network.NetworkAPI;
 import com.avit.apnamzpadmin.network.RetrofitClient;
 import com.avit.apnamzpadmin.utils.ErrorUtils;
+import com.avit.apnamzpadmin.utils.Validations;
 import com.google.android.material.textfield.TextInputEditText;
 
 import es.dmoral.toasty.Toasty;
@@ -33,7 +35,8 @@ public class UserAppServiceActivity extends AppCompatActivity {
     private ImageView shopStatusImage;
     private TextView shopStatusButton;
     private UserAppServiceViewModel viewModel;
-    private TextInputEditText slurgeCharges, slurgeReason, itemsOnTheWayCost;
+    private TextInputEditText slurgeCharges, slurgeReason, itemsOnTheWayCost, deliveryBasePriceBelowThreeView,
+        deliveryBasePriceAboveThreeView;
     private UserAppDetails userAppDetails;
     private String TAG = "UserAppServiceActivity";
 
@@ -51,6 +54,8 @@ public class UserAppServiceActivity extends AppCompatActivity {
         slurgeCharges = findViewById(R.id.slurge_charges);
         slurgeReason = findViewById(R.id.slurge_reason);
         itemsOnTheWayCost = findViewById(R.id.items_on_the_way_cost);
+        deliveryBasePriceBelowThreeView = findViewById(R.id.delivery_price_below_three);
+        deliveryBasePriceAboveThreeView = findViewById(R.id.delivery_base_price_after_three);
 
         viewModel.getMutableLiveData().observe(this, new Observer<UserAppDetails>() {
             @Override
@@ -73,13 +78,31 @@ public class UserAppServiceActivity extends AppCompatActivity {
         findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(!Validations.isNumber(itemsOnTheWayCost.getText().toString())
+                        || !Validations.isNumber(slurgeCharges.getText().toString())
+                        || slurgeReason.getText().toString().length() == 0
+                        || !Validations.isNumber(deliveryBasePriceBelowThreeView.getText().toString())
+                        || !Validations.isNumber(deliveryBasePriceAboveThreeView.getText().toString())){
+
+                    Toasty.error(getApplicationContext(),"BSDK Iske liy tum hamare darvaze pe chay aay, sahi kar usse.",Toasty.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
                 int itemsOnTheWayCostValue = Integer.parseInt(itemsOnTheWayCost.getText().toString());
                 int slurgeChargesValue = Integer.parseInt(slurgeCharges.getText().toString());
                 String slurgeReasonValue = slurgeReason.getText().toString();
 
+                int belowThreePrice = Integer.parseInt(deliveryBasePriceBelowThreeView.getText().toString());
+                int aboveThree = Integer.parseInt(deliveryBasePriceAboveThreeView.getText().toString());
+
+                DistanceBasePricings distanceBasePricings = new DistanceBasePricings(belowThreePrice,aboveThree);
+
                 userAppDetails.setItemsOnTheWayCost(itemsOnTheWayCostValue);
                 userAppDetails.setSlurgeCharges(slurgeChargesValue);
                 userAppDetails.setSlurgeReason(slurgeReasonValue);
+                userAppDetails.setDistanceBasePricings(distanceBasePricings);
 
                 updateDataToServer();
             }
@@ -149,9 +172,8 @@ public class UserAppServiceActivity extends AppCompatActivity {
         slurgeCharges.setText(String.valueOf(userAppDetails.getSlurgeCharges()));
         slurgeReason.setText(String.valueOf(userAppDetails.getSlurgeReason()));
         itemsOnTheWayCost.setText(String.valueOf(userAppDetails.getItemsOnTheWayCost()));
-
-
-
+        deliveryBasePriceBelowThreeView.setText(String.valueOf(userAppDetails.getDistanceBasePricings().getBELOW_THREE()));
+        deliveryBasePriceAboveThreeView.setText(String.valueOf(userAppDetails.getDistanceBasePricings().getBELOW_SIX()));
     }
 
     private void setShopStatus(){
