@@ -156,8 +156,14 @@
             </androidx.cardview.widget.CardView>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/save_changes_button"
                 android:layout_marginTop="12dp"
+                android:id="@+id/toogle_checkout"
+                android:text="Turn On Checkout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save_changes_button"
                 android:text="Save Changes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

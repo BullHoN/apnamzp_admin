@@ -112,4 +112,7 @@ public interface NetworkAPI {
     @POST("/apna_mzp/admin/order/updateStatus")
     Call<NetworkResponse> updateOrderStatus(@Body OrderItem orderItem);
 
+    @POST("/apna_mzp/admin/toogle_checkout")
+    Call<NetworkResponse> toggleShopCheckout(@Body ShopData shopData, @Query("allShops") boolean allShops);
+
 }

@@ -11,6 +11,23 @@ public class ShopData {
     private boolean adminShopService;
     private String phoneNO;
     private Subscription currentSubsciption;
+    private boolean allowCheckout;
+
+    public ShopData(){
+
+    }
+
+    public ShopData(String _id, String name, String menuItemsID, String shopType, boolean isOpen, boolean adminShopService, String phoneNO, Subscription currentSubsciption, boolean allowCheckout) {
+        this._id = _id;
+        this.name = name;
+        this.menuItemsID = menuItemsID;
+        this.shopType = shopType;
+        this.isOpen = isOpen;
+        this.adminShopService = adminShopService;
+        this.phoneNO = phoneNO;
+        this.currentSubsciption = currentSubsciption;
+        this.allowCheckout = allowCheckout;
+    }
 
     public ShopData(String _id, String name, String menuItemsID, String shopType, boolean isOpen, boolean adminShopService, String phoneNO, Subscription currentSubsciption) {
         this._id = _id;
@@ -31,6 +48,14 @@ public class ShopData {
         this.isOpen = isOpen;
         this.adminShopService = adminShopService;
         this.phoneNO = phoneNO;
+    }
+
+    public void toggleCheckout(){
+        allowCheckout = !allowCheckout;
+    }
+
+    public boolean isAllowCheckout() {
+        return allowCheckout;
     }
 
     public Subscription getCurrentSubsciption() {

@@ -15,12 +15,14 @@ import android.widget.TextView;
 
 import com.avit.apnamzpadmin.R;
 import com.avit.apnamzpadmin.models.network.NetworkResponse;
+import com.avit.apnamzpadmin.models.shop.ShopData;
 import com.avit.apnamzpadmin.models.user.DistanceBasePricings;
 import com.avit.apnamzpadmin.models.user.UserAppDetails;
 import com.avit.apnamzpadmin.network.NetworkAPI;
 import com.avit.apnamzpadmin.network.RetrofitClient;
 import com.avit.apnamzpadmin.utils.ErrorUtils;
 import com.avit.apnamzpadmin.utils.Validations;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import es.dmoral.toasty.Toasty;
@@ -57,6 +59,7 @@ public class UserAppServiceActivity extends AppCompatActivity {
         deliveryBasePriceBelowThreeView = findViewById(R.id.delivery_price_below_three);
         deliveryBasePriceAboveThreeView = findViewById(R.id.delivery_base_price_after_three);
 
+
         viewModel.getMutableLiveData().observe(this, new Observer<UserAppDetails>() {
             @Override
             public void onChanged(UserAppDetails userAppD) {
@@ -72,6 +75,20 @@ public class UserAppServiceActivity extends AppCompatActivity {
                 userAppDetails.setUserServiceOpen(!userAppDetails.isUserServiceOpen());
                 closeAllShops();
                 setShopStatus();
+            }
+        });
+
+        findViewById(R.id.open_checkout_for_all).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toogleCheckout();
+            }
+        });
+
+        findViewById(R.id.close_checkout_for_all).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toogleCheckout();
             }
         });
 
@@ -105,6 +122,35 @@ public class UserAppServiceActivity extends AppCompatActivity {
                 userAppDetails.setDistanceBasePricings(distanceBasePricings);
 
                 updateDataToServer();
+            }
+        });
+
+    }
+
+    private void toogleCheckout(){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
+
+        Call<NetworkResponse> call = networkAPI.toggleShopCheckout(new ShopData(),true);
+        call.enqueue(new Callback<NetworkResponse>() {
+            @Override
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getApplicationContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+
+                Toasty.warning(getApplicationContext(),"Done",Toasty.LENGTH_SHORT)
+                        .show();
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
+                Toasty.error(getApplicationContext(),t.getMessage(),Toasty.LENGTH_SHORT)
+                        .show();
             }
         });
 
@@ -174,6 +220,9 @@ public class UserAppServiceActivity extends AppCompatActivity {
         itemsOnTheWayCost.setText(String.valueOf(userAppDetails.getItemsOnTheWayCost()));
         deliveryBasePriceBelowThreeView.setText(String.valueOf(userAppDetails.getDistanceBasePricings().getBELOW_THREE()));
         deliveryBasePriceAboveThreeView.setText(String.valueOf(userAppDetails.getDistanceBasePricings().getBELOW_SIX()));
+
+
+
     }
 
     private void setShopStatus(){

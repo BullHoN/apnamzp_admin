@@ -9,6 +9,17 @@ public class UserAppDetails {
     private String slurgeReason;
     private int itemsOnTheWayCost;
     private DistanceBasePricings distanceBasePricings;
+    private boolean toggleCheckout;
+
+    public UserAppDetails(List<BannerData> bannerImages, boolean userServiceOpen, int slurgeCharges, String slurgeReason, int itemsOnTheWayCost, DistanceBasePricings distanceBasePricings, boolean toggleCheckout) {
+        this.bannerImages = bannerImages;
+        this.userServiceOpen = userServiceOpen;
+        this.slurgeCharges = slurgeCharges;
+        this.slurgeReason = slurgeReason;
+        this.itemsOnTheWayCost = itemsOnTheWayCost;
+        this.distanceBasePricings = distanceBasePricings;
+        this.toggleCheckout = toggleCheckout;
+    }
 
     public UserAppDetails(List<BannerData> bannerImages, boolean userServiceOpen,
                           int slurgeCharges, String slurgeReason, int itemsOnTheWayCost, DistanceBasePricings distanceBasePricings) {
@@ -18,6 +29,14 @@ public class UserAppDetails {
         this.slurgeReason = slurgeReason;
         this.itemsOnTheWayCost = itemsOnTheWayCost;
         this.distanceBasePricings = distanceBasePricings;
+    }
+
+    public void toggleCheckout() {
+        toggleCheckout = !toggleCheckout;
+    }
+
+    public boolean isToggleCheckout() {
+        return toggleCheckout;
     }
 
     public DistanceBasePricings getDistanceBasePricings() {

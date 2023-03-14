@@ -51,7 +51,7 @@ public class ShopDataActivity extends AppCompatActivity {
     private TextView fromDate, endDate, totalEarnings, expectedPay, directOrderEarningView;
     private SubscriptionPricings currPricing;
     private LinearLayout fromDateContainer, endDateContainer;
-    private MaterialButton saveChangesButton;
+    private MaterialButton saveChangesButton, toggleCheckout;
     private String TAG = "ShopDataActivityTAG";
 
     @Override
@@ -71,6 +71,7 @@ public class ShopDataActivity extends AppCompatActivity {
         endDateContainer = findViewById(R.id.end_date_container);
         saveChangesButton = findViewById(R.id.save_changes_button);
         directOrderEarningView = findViewById(R.id.direct_order_earnings);
+        toggleCheckout = findViewById(R.id.toogle_checkout);
 
         Gson gson = new Gson();
 
@@ -198,6 +199,54 @@ public class ShopDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveChanges();
+            }
+        });
+
+        if(shopData.isAllowCheckout()){
+            toggleCheckout.setText("Turn Off Checkout");
+            toggleCheckout.setBackgroundColor(getColor(R.color.failure));
+        }
+        else {
+            toggleCheckout.setText("Turn On Checkout");
+            toggleCheckout.setBackgroundColor(getColor(R.color.successColor));
+        }
+
+        toggleCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shopData.toggleCheckout();
+                toogleShopCheckout();
+            }
+        });
+
+    }
+
+    private void toogleShopCheckout(){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkAPI networkAPI = retrofit.create(NetworkAPI.class);
+
+        Call<NetworkResponse> call = networkAPI.toggleShopCheckout(shopData,false);
+        call.enqueue(new Callback<NetworkResponse>() {
+            @Override
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
+
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getApplicationContext(),errorResponse.getDesc(),Toasty.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
+                Toasty.success(getApplicationContext(),"Saved",Toasty.LENGTH_LONG)
+                        .show();
+                finish();
+
+            }
+
+            @Override
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
+                Toasty.error(getApplicationContext(),t.getMessage(),Toasty.LENGTH_SHORT)
+                        .show();
             }
         });
 
